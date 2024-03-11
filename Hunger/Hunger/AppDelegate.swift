@@ -9,9 +9,39 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+	var window: UIWindow?
+	let restResultsVC = RestaurantResultsViewController()
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
+	[UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.makeKeyAndVisible()
+		window?.backgroundColor = .systemBackground
+		displayResults()
 		return true
 	}
 }
 
+extension AppDelegate {
+	private func displayResults() {
+		setRootViewController(restResultsVC, animated: true)
+	}
+}
+
+extension AppDelegate {
+	func setRootViewController(_ viewController: UIViewController, animated: Bool = true) {
+		guard animated, let window = self.window else {
+			self.window?.rootViewController = UINavigationController(rootViewController: viewController)
+			self.window?.makeKeyAndVisible()
+			return
+		}
+
+		window.rootViewController = UINavigationController(rootViewController: viewController)
+		window.makeKeyAndVisible()
+		UIView.transition(with: window,
+						  duration: 0.5,
+						  options: .transitionCrossDissolve,
+						  animations: nil,
+						  completion: nil)
+	}
+}
