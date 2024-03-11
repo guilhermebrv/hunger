@@ -11,20 +11,26 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	let restResultsVC = RestaurantResultsViewController()
+	let restSearchVC = SearchRestaurantViewController()
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
 	[UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		window?.backgroundColor = .systemBackground
-		displayResults()
+		displaySearch()
+		restSearchVC.delegate = self
 		return true
 	}
 }
 
-extension AppDelegate {
-	private func displayResults() {
-		setRootViewController(restResultsVC, animated: true)
+extension AppDelegate: SearchRestaurantViewControllerDelegate {
+	func searchButtonClicked() {
+		restSearchVC.navigationController?.pushViewController(restResultsVC, animated: true)
+	}
+	
+	private func displaySearch() {
+		setRootViewController(restSearchVC, animated: true)
 	}
 }
 
