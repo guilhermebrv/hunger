@@ -7,12 +7,7 @@
 
 import UIKit
 
-protocol SearchRestaurantViewControllerDelegate: AnyObject {
-	func searchButtonClicked()
-}
-
 class SearchRestaurantViewController: UIViewController {
-	weak var delegate: SearchRestaurantViewControllerDelegate?
 	var searchView: SearchRestaurantView?
 
 	override func loadView() {
@@ -51,7 +46,8 @@ class SearchRestaurantViewController: UIViewController {
 
 extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
 	func searchButtonClicked() {
-		delegate?.searchButtonClicked()
+		let restResultsVC = RestaurantResultsViewController()
+		navigationController?.pushViewController(restResultsVC, animated: true)
 	}
 }
 

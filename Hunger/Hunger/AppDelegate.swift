@@ -10,7 +10,7 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
-	let restResultsVC = RestaurantResultsViewController()
+	let tabBarController = TabBarController()
 	let restSearchVC = SearchRestaurantViewController()
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
@@ -18,19 +18,15 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		window?.backgroundColor = .systemBackground
-		displaySearch()
-		restSearchVC.delegate = self
+		displayTabBar()
 		return true
 	}
 }
 
-extension AppDelegate: SearchRestaurantViewControllerDelegate {
-	func searchButtonClicked() {
-		restSearchVC.navigationController?.pushViewController(restResultsVC, animated: true)
-	}
-	
-	private func displaySearch() {
-		setRootViewController(restSearchVC, animated: true)
+extension AppDelegate {	
+	private func displayTabBar() {
+		setRootViewController(tabBarController, animated: true)
+		tabBarController.navigationController?.navigationBar.isHidden = true
 	}
 }
 

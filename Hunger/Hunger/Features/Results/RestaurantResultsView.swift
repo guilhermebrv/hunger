@@ -13,7 +13,6 @@ class RestaurantResultsView: UIView {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = .systemBackground
 		createElements()
 		addElements()
 		configConstraints()

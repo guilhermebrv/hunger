@@ -21,6 +21,7 @@
 		2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */; };
 		2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */; };
 		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
+		2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewController.swift; sourceTree = "<group>"; };
 		2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantView.swift; sourceTree = "<group>"; };
 		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		2B2E3EBF2B98EAB9003383E7 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				2BE9F0DF2BA09BFD006AFB36 /* TabBar */,
 				2B3DF58C2B9F8A6700FC43D6 /* Search */,
 				2B3DF5812B9F344800FC43D6 /* Results */,
 			);
@@ -204,6 +207,14 @@
 				2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */,
 			);
 			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		2BE9F0DF2BA09BFD006AFB36 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +373,7 @@
 				2B3DF5872B9F869300FC43D6 /* RestaurantResultsViewModel.swift in Sources */,
 				2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */,
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
+				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
 				2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */,
 				2B3DF5832B9F345C00FC43D6 /* RestaurantResultsViewController.swift in Sources */,
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,

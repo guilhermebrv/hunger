@@ -27,13 +27,15 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
     }
 
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Restaurants"
+		navigationItem.titleView?.tintColor = .label
 		let appearance = UINavigationBarAppearance()
 			appearance.configureWithTransparentBackground()
 			appearance.backgroundColor = UIColor.clear
 
-			let blurEffect = UIBlurEffect(style: .regular)
+			let blurEffect = UIBlurEffect(style: .regular) // Choose your style: .light, .extraLight, .dark, etc.
 			let blurView = UIVisualEffectView(effect: blurEffect)
 			blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
 			blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
