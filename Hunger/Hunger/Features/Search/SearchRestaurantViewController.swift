@@ -32,6 +32,19 @@ class SearchRestaurantViewController: UIViewController {
 		navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Search"
 		navigationItem.titleView?.tintColor = .label
+		let appearance = UINavigationBarAppearance()
+			appearance.configureWithTransparentBackground()
+			appearance.backgroundColor = UIColor.clear
+
+			let blurEffect = UIBlurEffect(style: .regular) // Choose your style: .light, .extraLight, .dark, etc.
+			let blurView = UIVisualEffectView(effect: blurEffect)
+			blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
+			blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+			appearance.backgroundEffect = blurEffect
+			navigationController?.navigationBar.standardAppearance = appearance
+			navigationController?.navigationBar.scrollEdgeAppearance = appearance
+			navigationController?.navigationBar.isTranslucent = true
 	}
 
 }

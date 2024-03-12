@@ -29,6 +29,19 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		navigationItem.title = "Restaurants"
+		let appearance = UINavigationBarAppearance()
+			appearance.configureWithTransparentBackground()
+			appearance.backgroundColor = UIColor.clear
+
+			let blurEffect = UIBlurEffect(style: .regular)
+			let blurView = UIVisualEffectView(effect: blurEffect)
+			blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
+			blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+			appearance.backgroundEffect = blurEffect
+			navigationController?.navigationBar.standardAppearance = appearance
+			navigationController?.navigationBar.scrollEdgeAppearance = appearance
+			navigationController?.navigationBar.isTranslucent = true
 	}
 }
 

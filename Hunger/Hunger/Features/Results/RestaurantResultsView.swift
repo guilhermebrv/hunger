@@ -50,7 +50,7 @@ extension RestaurantResultsView {
 	}
 	private func configConstraints() {
 		NSLayoutConstraint.activate([
-			restaurantsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+			restaurantsTableView.topAnchor.constraint(equalTo: topAnchor),
 			restaurantsTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			restaurantsTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			restaurantsTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
