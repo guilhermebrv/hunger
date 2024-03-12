@@ -28,10 +28,7 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
-		//navigationController?.navigationBar.prefersLargeTitles = true
-		//navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Restaurants"
-		//navigationItem.titleView?.tintColor = .label
 	}
 }
 

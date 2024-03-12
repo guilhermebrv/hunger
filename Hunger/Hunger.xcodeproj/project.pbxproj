@@ -20,6 +20,7 @@
 		2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */; };
 		2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */; };
 		2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */; };
+		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRestaurantTableViewCellView.swift; sourceTree = "<group>"; };
 		2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewController.swift; sourceTree = "<group>"; };
 		2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantView.swift; sourceTree = "<group>"; };
+		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 		2B2E3EC22B98EAD9003383E7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,
 				2B3DF5892B9F875100FC43D6 /* SelectedRestaurantTableViewCell.swift in Sources */,
 				2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */,
+				2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
