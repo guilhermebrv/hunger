@@ -31,6 +31,8 @@ extension RestaurantResultsView {
 		restaurantsTableView.showsVerticalScrollIndicator = false
 		restaurantsTableView.register(SelectedRestaurantTableViewCell.self,
 									  forCellReuseIdentifier: SelectedRestaurantTableViewCell.identifier)
+		restaurantsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+
 
 		mapsButton.translatesAutoresizingMaskIntoConstraints = false
 		mapsButton.configuration = .bordered()
@@ -58,3 +60,4 @@ extension RestaurantResultsView {
 		])
 	}
 }
+
