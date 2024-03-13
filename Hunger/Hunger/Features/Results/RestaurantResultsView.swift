@@ -38,7 +38,7 @@ extension RestaurantResultsView {
 		mapsButton.configuration?.title = "Open Maps"
 		mapsButton.configuration?.baseBackgroundColor = .systemBlue
 		mapsButton.configuration?.baseForegroundColor = .systemBackground
-		mapsButton.configuration?.image = UIImage(systemName: "map.fill")
+		mapsButton.configuration?.image = UIImage(systemName: "location.circle.fill")
 		mapsButton.configuration?.imagePadding = 6
 		mapsButton.configuration?.cornerStyle = .capsule
 	}

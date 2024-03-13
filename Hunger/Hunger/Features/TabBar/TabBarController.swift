@@ -21,16 +21,16 @@ class TabBarController: UITabBarController {
 
 		let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
 		tabBarAppearance.configureWithDefaultBackground()
-		tabBarAppearance.backgroundColor = .lightGray
+		tabBarAppearance.backgroundColor = .systemBackground
 
 		tabBar.isTranslucent = false
-		tabBar.tintColor = .white
+		tabBar.tintColor = .label
 		tabBar.standardAppearance = tabBarAppearance
 		tabBar.scrollEdgeAppearance = tabBarAppearance
 		tabBar.unselectedItemTintColor = .black
 
 		guard let items = tabBar.items else { return }
-		items[0].image = UIImage(systemName: "magnifyingglass")
+		items[0].image = UIImage(systemName: "fork.knife")
 		items[0].title = "Search"
 		items[1].image = UIImage(systemName: "star")
 		items[1].title = "Favorites"

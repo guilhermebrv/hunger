@@ -26,24 +26,47 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 		signProtocols()
     }
 
+//	let actionClosure = { (action: UIAction) in
+//	}
+//
+//	public var orderByButton: UIButton {
+//		let button = UIButton(primaryAction: nil)
+//		var menuChildren: [UIMenuElement] = [UIAction(title: "Distance", handler: actionClosure),
+//											 UIAction(title: "Ratings", handler: actionClosure)]
+//
+//		button.translatesAutoresizingMaskIntoConstraints = false
+//		button.showsMenuAsPrimaryAction = true
+//		button.changesSelectionAsPrimaryAction = true
+//		button.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle"), for: .normal)
+//		button.menu = UIMenu(options: .displayInline, children: menuChildren)
+//		return button
+//	}
+
+	// REFACTOR
 	override func viewWillAppear(_ animated: Bool) {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Restaurants"
 		navigationItem.titleView?.tintColor = .label
+		// navigationItem.rightBarButtonItem = UIBarButtonItem(customView: orderByButton)
+
 		let appearance = UINavigationBarAppearance()
-			appearance.configureWithTransparentBackground()
-			appearance.backgroundColor = UIColor.clear
+		appearance.configureWithTransparentBackground()
+		appearance.backgroundColor = UIColor.clear
 
-			let blurEffect = UIBlurEffect(style: .regular) // Choose your style: .light, .extraLight, .dark, etc.
-			let blurView = UIVisualEffectView(effect: blurEffect)
-			blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
-			blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		let blurEffect = UIBlurEffect(style: .regular)
+		let blurView = UIVisualEffectView(effect: blurEffect)
+		blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
+		blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-			appearance.backgroundEffect = blurEffect
-			navigationController?.navigationBar.standardAppearance = appearance
-			navigationController?.navigationBar.scrollEdgeAppearance = appearance
-			navigationController?.navigationBar.isTranslucent = true
+		appearance.backgroundEffect = blurEffect
+		navigationController?.navigationBar.standardAppearance = appearance
+		navigationController?.navigationBar.scrollEdgeAppearance = appearance
+		navigationController?.navigationBar.isTranslucent = true
+	}
+
+	@objc func togglePullDownMenu() {
+		
 	}
 }
 

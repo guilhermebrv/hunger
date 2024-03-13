@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class SearchRestaurantViewController: UIViewController {
 	var searchView: SearchRestaurantView?
+	var locationManager: CLLocationManager!
+	var userSelectedRadius: CLLocationDistance = 250
+
 
 	override func loadView() {
 		super.loadView()
@@ -19,6 +24,7 @@ class SearchRestaurantViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		signProtocols()
+		setupLocationManager()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +37,7 @@ class SearchRestaurantViewController: UIViewController {
 			appearance.configureWithTransparentBackground()
 			appearance.backgroundColor = UIColor.clear
 
-			let blurEffect = UIBlurEffect(style: .regular) // Choose your style: .light, .extraLight, .dark, etc.
+			let blurEffect = UIBlurEffect(style: .regular)
 			let blurView = UIVisualEffectView(effect: blurEffect)
 			blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
 			blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -45,14 +51,44 @@ class SearchRestaurantViewController: UIViewController {
 }
 
 extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
+	func sliderValueChanged(value: Int) {
+		let multipliedValue = value * 50
+		searchView?.radiusLabel.text = "\(multipliedValue) m"
+		userSelectedRadius = CLLocationDistance(multipliedValue)
+		locationManager.startUpdatingLocation()
+	}
+	
 	func searchButtonClicked() {
 		let restResultsVC = RestaurantResultsViewController()
 		navigationController?.pushViewController(restResultsVC, animated: true)
 	}
 }
 
-extension SearchRestaurantViewController {
+extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	private func signProtocols() {
 		searchView?.delegate = self
+	}
+	private func setupLocationManager() {
+		locationManager = CLLocationManager()
+		locationManager.delegate = self
+		locationManager.desiredAccuracy = kCLLocationAccuracyBest
+		locationManager.requestWhenInUseAuthorization()
+		locationManager.startUpdatingLocation()
+	}
+	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		if let location = locations.last {
+			let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2, longitudinalMeters: userSelectedRadius * 2)
+			searchView?.mapView.setRegion(region, animated: true)
+			locationManager.stopUpdatingLocation()
+		}
+	}
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+		// TODO: implement error retrieving the location function
+	}
+	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+		if status == .authorizedWhenInUse || status == .authorizedAlways {
+			locationManager.startUpdatingLocation()
+		}
 	}
 }

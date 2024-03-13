@@ -20,8 +20,10 @@
 		2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */; };
 		2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */; };
 		2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */; };
+		2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E32BA201C6005EE59D /* InstantSlider.swift */; };
 		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
 		2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */; };
+		2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +61,10 @@
 		2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRestaurantTableViewCellView.swift; sourceTree = "<group>"; };
 		2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewController.swift; sourceTree = "<group>"; };
 		2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantView.swift; sourceTree = "<group>"; };
+		2BB309E32BA201C6005EE59D /* InstantSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantSlider.swift; sourceTree = "<group>"; };
 		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */,
+				2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */,
+				2BB309E32BA201C6005EE59D /* InstantSlider.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,7 +376,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */,
 				2B3DF5872B9F869300FC43D6 /* RestaurantResultsViewModel.swift in Sources */,
+				2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */,
 				2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */,
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
 				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
