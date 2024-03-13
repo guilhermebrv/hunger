@@ -13,8 +13,8 @@ class SelectedRestaurantTableViewCell: UITableViewCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		addSubview(view)
-		view.pin(to: self)
+		contentView.addSubview(view)
+		view.pin(to: contentView)
 	}
 
 	required init?(coder: NSCoder) {

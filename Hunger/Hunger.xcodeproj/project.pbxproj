@@ -21,6 +21,8 @@
 		2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */; };
 		2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */; };
 		2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E32BA201C6005EE59D /* InstantSlider.swift */; };
+		2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E62BA2032F005EE59D /* DistanceSliderView.swift */; };
+		2BB309E92BA2034C005EE59D /* DistanceSliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E82BA2034C005EE59D /* DistanceSliderTableViewCell.swift */; };
 		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
 		2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */; };
 		2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */; };
@@ -62,6 +64,8 @@
 		2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewController.swift; sourceTree = "<group>"; };
 		2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantView.swift; sourceTree = "<group>"; };
 		2BB309E32BA201C6005EE59D /* InstantSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantSlider.swift; sourceTree = "<group>"; };
+		2BB309E62BA2032F005EE59D /* DistanceSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceSliderView.swift; sourceTree = "<group>"; };
+		2BB309E82BA2034C005EE59D /* DistanceSliderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceSliderTableViewCell.swift; sourceTree = "<group>"; };
 		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 		2B3DF58C2B9F8A6700FC43D6 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2BB309E52BA2030F005EE59D /* DistanceSlider */,
 				2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */,
 				2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */,
 			);
@@ -213,6 +218,15 @@
 				2B3DF58A2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift */,
 			);
 			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		2BB309E52BA2030F005EE59D /* DistanceSlider */ = {
+			isa = PBXGroup;
+			children = (
+				2BB309E62BA2032F005EE59D /* DistanceSliderView.swift */,
+				2BB309E82BA2034C005EE59D /* DistanceSliderTableViewCell.swift */,
+			);
+			path = DistanceSlider;
 			sourceTree = "<group>";
 		};
 		2BE9F0DF2BA09BFD006AFB36 /* TabBar */ = {
@@ -377,12 +391,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */,
+				2BB309E92BA2034C005EE59D /* DistanceSliderTableViewCell.swift in Sources */,
 				2B3DF5872B9F869300FC43D6 /* RestaurantResultsViewModel.swift in Sources */,
 				2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */,
 				2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */,
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
 				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
 				2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */,
+				2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */,
 				2B3DF5832B9F345C00FC43D6 /* RestaurantResultsViewController.swift in Sources */,
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,
 				2B3DF5892B9F875100FC43D6 /* SelectedRestaurantTableViewCell.swift in Sources */,

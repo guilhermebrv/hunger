@@ -26,7 +26,7 @@ class RestaurantResultsView: UIView {
 extension RestaurantResultsView {
 	private func createElements() {
 		restaurantsTableView.translatesAutoresizingMaskIntoConstraints = false
-		restaurantsTableView.backgroundColor = .systemBackground
+		restaurantsTableView.backgroundColor = .secondarySystemBackground
 		restaurantsTableView.showsVerticalScrollIndicator = false
 		restaurantsTableView.register(SelectedRestaurantTableViewCell.self,
 									  forCellReuseIdentifier: SelectedRestaurantTableViewCell.identifier)
@@ -37,7 +37,7 @@ extension RestaurantResultsView {
 		mapsButton.configuration = .bordered()
 		mapsButton.configuration?.title = "Open Maps"
 		mapsButton.configuration?.baseBackgroundColor = .systemBlue
-		mapsButton.configuration?.baseForegroundColor = .systemBackground
+		mapsButton.configuration?.baseForegroundColor = .white
 		mapsButton.configuration?.image = UIImage(systemName: "location.circle.fill")
 		mapsButton.configuration?.imagePadding = 6
 		mapsButton.configuration?.cornerStyle = .capsule

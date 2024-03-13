@@ -11,6 +11,7 @@ import MapKit
 
 class SearchRestaurantViewController: UIViewController {
 	var searchView: SearchRestaurantView?
+	var distanceCell: DistanceSliderTableViewCell?
 	var locationManager: CLLocationManager!
 	var userSelectedRadius: CLLocationDistance = 250
 
@@ -30,12 +31,11 @@ class SearchRestaurantViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Search"
 		navigationItem.titleView?.tintColor = .label
 		let appearance = UINavigationBarAppearance()
 			appearance.configureWithTransparentBackground()
-			appearance.backgroundColor = UIColor.clear
+			appearance.backgroundColor = .secondarySystemBackground
 
 			let blurEffect = UIBlurEffect(style: .regular)
 			let blurView = UIVisualEffectView(effect: blurEffect)
@@ -51,12 +51,12 @@ class SearchRestaurantViewController: UIViewController {
 }
 
 extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
-	func sliderValueChanged(value: Int) {
-		let multipliedValue = value * 50
-		searchView?.radiusLabel.text = "\(multipliedValue) m"
-		userSelectedRadius = CLLocationDistance(multipliedValue)
-		locationManager.startUpdatingLocation()
-	}
+//	func sliderValueChanged(value: Int) {
+//		let multipliedValue = value * 50
+//		searchView?.radiusLabel.text = "\(multipliedValue) m"
+//		userSelectedRadius = CLLocationDistance(multipliedValue)
+//		locationManager.startUpdatingLocation()
+//	}
 	
 	func searchButtonClicked() {
 		let restResultsVC = RestaurantResultsViewController()
@@ -65,9 +65,6 @@ extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
 }
 
 extension SearchRestaurantViewController: CLLocationManagerDelegate {
-	private func signProtocols() {
-		searchView?.delegate = self
-	}
 	private func setupLocationManager() {
 		locationManager = CLLocationManager()
 		locationManager.delegate = self
@@ -92,3 +89,47 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 		}
 	}
 }
+
+extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 1
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
+												 for: indexPath) as? DistanceSliderTableViewCell
+		cell?.delegate = self
+		return cell ?? UITableViewCell()
+	}
+
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 90
+	}
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		switch section {
+			case 0:
+				return "DISTANCE"
+			case 1:
+				return "Second Section"
+			default:
+				return nil
+			}
+	}
+}
+
+extension SearchRestaurantViewController {
+	private func signProtocols() {
+		searchView?.delegate = self
+		searchView?.searchTableView.delegate = self
+		searchView?.searchTableView.dataSource = self
+	}
+}
+
+extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate {
+	func sliderValueChanged(value: Int) {
+		let multipliedValue = value * 50
+		userSelectedRadius = CLLocationDistance(multipliedValue)
+		locationManager.startUpdatingLocation()
+	}
+}
+

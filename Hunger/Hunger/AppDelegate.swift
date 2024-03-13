@@ -17,7 +17,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 	[UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
-		window?.backgroundColor = .systemBackground
+		window?.backgroundColor = .secondarySystemBackground
 		displayTabBar()
 		return true
 	}

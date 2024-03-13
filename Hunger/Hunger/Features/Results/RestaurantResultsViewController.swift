@@ -45,14 +45,13 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 	// REFACTOR
 	override func viewWillAppear(_ animated: Bool) {
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.backgroundColor = .systemBackground
 		navigationItem.title = "Restaurants"
 		navigationItem.titleView?.tintColor = .label
 		// navigationItem.rightBarButtonItem = UIBarButtonItem(customView: orderByButton)
 
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithTransparentBackground()
-		appearance.backgroundColor = UIColor.clear
+		appearance.backgroundColor = .secondarySystemBackground
 
 		let blurEffect = UIBlurEffect(style: .regular)
 		let blurView = UIVisualEffectView(effect: blurEffect)

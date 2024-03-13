@@ -10,16 +10,13 @@ import MapKit
 
 protocol SearchRestaurantViewDelegate: AnyObject {
 	func searchButtonClicked()
-	func sliderValueChanged(value: Int)
 }
 
 class SearchRestaurantView: UIView {
 	weak var delegate: SearchRestaurantViewDelegate?
-	let restaurantsTableView = UITableView()
-	let mapsButton = UIButton(type: .system)
-	let radiusSlider = InstantSlider()
-	let radiusLabel = UILabel()
 	let mapView = MKMapView()
+	let searchTableView = UITableView()
+	let mapsButton = UIButton(type: .system)
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -50,29 +47,24 @@ extension SearchRestaurantView {
 		mapView.isPitchEnabled = true
 		mapView.layer.cornerRadius = 8
 
-		radiusSlider.translatesAutoresizingMaskIntoConstraints = false
-		radiusSlider.minimumValue = 1
-		radiusSlider.maximumValue = 60
-		radiusSlider.value = 25
-		radiusSlider.isContinuous = true
-		radiusSlider.tintColor = .systemBlue
-		radiusSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
-
-		radiusLabel.translatesAutoresizingMaskIntoConstraints = false
-		radiusLabel.text = "\(Int(radiusSlider.value * 50))m"
+		searchTableView.translatesAutoresizingMaskIntoConstraints = false
+		searchTableView.backgroundColor = .secondarySystemBackground
+		searchTableView.showsVerticalScrollIndicator = false
+		searchTableView.register(DistanceSliderTableViewCell.self, forCellReuseIdentifier: DistanceSliderTableViewCell.identifier)
+		searchTableView.allowsSelection = false
+		searchTableView.separatorStyle = .none
 
 		mapsButton.translatesAutoresizingMaskIntoConstraints = false
 		mapsButton.configuration = .bordered()
 		mapsButton.configuration?.title = "Results"
 		mapsButton.configuration?.baseBackgroundColor = .systemBlue
-		mapsButton.configuration?.baseForegroundColor = .systemBackground
+		mapsButton.configuration?.baseForegroundColor = .white
 		mapsButton.configuration?.cornerStyle = .capsule
 		mapsButton.addTarget(self, action: #selector(searchButtonClicked), for: .touchUpInside)
 	}
 	private func addElements() {
 		addSubview(mapView)
-		addSubview(radiusSlider)
-		addSubview(radiusLabel)
+		addSubview(searchTableView)
 		addSubview(mapsButton)
 	}
 	private func configConstraints() {
@@ -82,12 +74,10 @@ extension SearchRestaurantView {
 			trailingAnchor.constraint(equalToSystemSpacingAfter: mapView.trailingAnchor, multiplier: 2),
 			mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
 
-			radiusSlider.topAnchor.constraint(equalToSystemSpacingBelow: mapView.bottomAnchor, multiplier: 2),
-			radiusSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-			trailingAnchor.constraint(equalTo: radiusSlider.trailingAnchor, constant: 20),
-
-			radiusLabel.topAnchor.constraint(equalToSystemSpacingBelow: radiusSlider.bottomAnchor, multiplier: 2),
-			radiusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+			searchTableView.topAnchor.constraint(equalToSystemSpacingBelow: mapView.bottomAnchor, multiplier: 1),
+			searchTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			searchTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			searchTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
 			mapsButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
 			mapsButton.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -98,9 +88,6 @@ extension SearchRestaurantView {
 extension SearchRestaurantView {
 	@objc private func searchButtonClicked() {
 		delegate?.searchButtonClicked()
-	}
-	@objc private func sliderValueChanged() {
-		delegate?.sliderValueChanged(value: Int(radiusSlider.value))
 	}
 }
 
