@@ -62,14 +62,13 @@ extension DistanceSliderView {
 			trailingAnchor.constraint(equalToSystemSpacingAfter: bgview.trailingAnchor, multiplier: 2),
 			bottomAnchor.constraint(equalToSystemSpacingBelow: bgview.bottomAnchor, multiplier: 1),
 
-
 			radiusSlider.topAnchor.constraint(equalToSystemSpacingBelow: bgview.topAnchor, multiplier: 1),
 			radiusSlider.leadingAnchor.constraint(equalToSystemSpacingAfter: bgview.leadingAnchor, multiplier: 2),
 			bgview.trailingAnchor.constraint(equalToSystemSpacingAfter: radiusSlider.trailingAnchor, multiplier: 2),
 
 			radiusLabel.topAnchor.constraint(equalToSystemSpacingBelow: radiusSlider.bottomAnchor, multiplier: 1),
 			radiusLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: bgview.leadingAnchor, multiplier: 2),
-			bgview.trailingAnchor.constraint(equalToSystemSpacingAfter: radiusLabel.trailingAnchor, multiplier: 2),
+			bgview.trailingAnchor.constraint(equalToSystemSpacingAfter: radiusLabel.trailingAnchor, multiplier: 2)
 		])
 	}
 }

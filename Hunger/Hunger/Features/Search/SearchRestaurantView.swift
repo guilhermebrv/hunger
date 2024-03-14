@@ -15,7 +15,7 @@ protocol SearchRestaurantViewDelegate: AnyObject {
 class SearchRestaurantView: UIView {
 	weak var delegate: SearchRestaurantViewDelegate?
 	let mapView = MKMapView()
-	let searchTableView = UITableView()
+	let searchTableView = UITableView(frame: .zero, style: .grouped)
 	let mapsButton = UIButton(type: .system)
 
 	override init(frame: CGRect) {
@@ -51,6 +51,7 @@ extension SearchRestaurantView {
 		searchTableView.backgroundColor = .secondarySystemBackground
 		searchTableView.showsVerticalScrollIndicator = false
 		searchTableView.register(DistanceSliderTableViewCell.self, forCellReuseIdentifier: DistanceSliderTableViewCell.identifier)
+		searchTableView.register(TypeSelectionTableViewCell.self, forCellReuseIdentifier: TypeSelectionTableViewCell.identifier)
 		searchTableView.allowsSelection = false
 		searchTableView.separatorStyle = .none
 

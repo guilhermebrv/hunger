@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1F7D862BA30F2D00D7E6EF /* SearchTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */; };
+		2B1F7D8A2BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */; };
+		2B1F7D8C2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */; };
 		2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E3E892B98C70E003383E7 /* AppDelegate.swift */; };
 		2B2E3E932B98C711003383E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E3E922B98C711003383E7 /* Assets.xcassets */; };
 		2B2E3E962B98C711003383E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E3E942B98C711003383E7 /* LaunchScreen.storyboard */; };
@@ -46,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCellType.swift; sourceTree = "<group>"; };
+		2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B2E3E862B98C70E003383E7 /* Hunger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hunger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B2E3E892B98C70E003383E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B2E3E922B98C711003383E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +102,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B1F7D842BA30E4F00D7E6EF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2B1F7D872BA3135A00D7E6EF /* TypeSelection */ = {
+			isa = PBXGroup;
+			children = (
+				2B1F7D882BA3136400D7E6EF /* CollectionView */,
+				2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */,
+			);
+			path = TypeSelection;
+			sourceTree = "<group>";
+		};
+		2B1F7D882BA3136400D7E6EF /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		2B2E3E7D2B98C70E003383E7 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +150,7 @@
 		2B2E3E882B98C70E003383E7 /* Hunger */ = {
 			isa = PBXGroup;
 			children = (
+				2B1F7D842BA30E4F00D7E6EF /* Utils */,
 				2B2E3EC22B98EAD9003383E7 /* Extensions */,
 				2B2E3EC02B98EAC5003383E7 /* Networking */,
 				2B2E3EBF2B98EAB9003383E7 /* Features */,
@@ -193,6 +225,7 @@
 		2B3DF58C2B9F8A6700FC43D6 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2B1F7D872BA3135A00D7E6EF /* TypeSelection */,
 				2BB309E52BA2030F005EE59D /* DistanceSlider */,
 				2B3DF5902B9F8B1300FC43D6 /* SearchRestaurantViewController.swift */,
 				2B3DF5922B9F8B1D00FC43D6 /* SearchRestaurantView.swift */,
@@ -402,8 +435,11 @@
 				2B3DF5832B9F345C00FC43D6 /* RestaurantResultsViewController.swift in Sources */,
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,
 				2B3DF5892B9F875100FC43D6 /* SelectedRestaurantTableViewCell.swift in Sources */,
+				2B1F7D8A2BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift in Sources */,
 				2B3DF5932B9F8B1D00FC43D6 /* SearchRestaurantView.swift in Sources */,
+				2B1F7D862BA30F2D00D7E6EF /* SearchTableViewCellType.swift in Sources */,
 				2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */,
+				2B1F7D8C2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

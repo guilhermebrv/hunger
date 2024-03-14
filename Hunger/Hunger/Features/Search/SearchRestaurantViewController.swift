@@ -14,7 +14,7 @@ class SearchRestaurantViewController: UIViewController {
 	var distanceCell: DistanceSliderTableViewCell?
 	var locationManager: CLLocationManager!
 	var userSelectedRadius: CLLocationDistance = 250
-
+	var cellTypes: [SearchTableViewCellType] = [.distance, .restaurantType]
 
 	override func loadView() {
 		super.loadView()
@@ -57,7 +57,7 @@ extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
 //		userSelectedRadius = CLLocationDistance(multipliedValue)
 //		locationManager.startUpdatingLocation()
 //	}
-	
+
 	func searchButtonClicked() {
 		let restResultsVC = RestaurantResultsViewController()
 		navigationController?.pushViewController(restResultsVC, animated: true)
@@ -92,14 +92,22 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 
 extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return 2
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
-												 for: indexPath) as? DistanceSliderTableViewCell
-		cell?.delegate = self
-		return cell ?? UITableViewCell()
+		switch cellTypes[indexPath.row] {
+			case .distance:
+				let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
+													 for: indexPath) as? DistanceSliderTableViewCell
+				cell?.delegate = self
+				return cell ?? UITableViewCell()
+			case .restaurantType:
+			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier,
+												 for: indexPath) as? TypeSelectionTableViewCell
+			return cell ?? UITableViewCell()
+
+		}
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -110,7 +118,7 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 			case 0:
 				return "DISTANCE"
 			case 1:
-				return "Second Section"
+				return "FOOD TYPE"
 			default:
 				return nil
 			}
