@@ -8,20 +8,26 @@
 import UIKit
 
 class TypeSelectionCollectionViewCell: UICollectionViewCell {
-	var button: UIButton!
 	static let identifier = String(describing: TypeSelectionCollectionViewCell.self)
+	var button: UIButton = UIButton(type: .system)
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		backgroundColor = .secondarySystemBackground
-		button = UIButton(type: .system)
-		button.frame = self.contentView.bounds
-		button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		contentView.addSubview(button)
-		button.pin(to: contentView)
+		setupButton()
 	}
-	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+extension TypeSelectionCollectionViewCell {
+	private func setupButton() {
+		contentView.addSubview(button)
+		button.pin(to: contentView)
+		button.frame = self.contentView.bounds
+		button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		button.configuration = .gray()
+		button.configuration?.cornerStyle = .capsule
 	}
 }

@@ -14,7 +14,7 @@ class SearchRestaurantViewController: UIViewController {
 	var distanceCell: DistanceSliderTableViewCell?
 	var locationManager: CLLocationManager!
 	var userSelectedRadius: CLLocationDistance = 250
-	var cellTypes: [SearchTableViewCellType] = [.distance, .restaurantType]
+	var cellTypes: [[SearchTableViewCellType]] = [[.distance], [.restaurantType]]
 
 	override func loadView() {
 		super.loadView()
@@ -92,36 +92,41 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 
 extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 2
+		cellTypes[section].count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch cellTypes[indexPath.row] {
-			case .distance:
-				let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
-													 for: indexPath) as? DistanceSliderTableViewCell
-				cell?.delegate = self
-				return cell ?? UITableViewCell()
-			case .restaurantType:
-			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier,
-												 for: indexPath) as? TypeSelectionTableViewCell
+		switch cellTypes[indexPath.section][indexPath.row] {
+		case .distance:
+			let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier, for: indexPath) as? DistanceSliderTableViewCell
+			cell?.delegate = self
 			return cell ?? UITableViewCell()
-
+		case .restaurantType:
+			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier, for: indexPath) as? TypeSelectionTableViewCell
+			return cell ?? UITableViewCell()
 		}
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 90
+		switch cellTypes[indexPath.section][indexPath.row] {
+		case .distance:
+			90
+		case .restaurantType:
+			500
+		}
 	}
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
-			case 0:
-				return "DISTANCE"
-			case 1:
-				return "FOOD TYPE"
-			default:
-				return nil
-			}
+		case 0:
+			return "DISTANCE"
+		case 1:
+			return "FOOD TYPE"
+		default:
+			return nil
+		}
+	}
+	func numberOfSections(in tableView: UITableView) -> Int {
+		cellTypes.count
 	}
 }
 

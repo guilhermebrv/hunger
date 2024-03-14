@@ -10,6 +10,7 @@
 		2B1F7D862BA30F2D00D7E6EF /* SearchTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */; };
 		2B1F7D8A2BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */; };
 		2B1F7D8C2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */; };
+		2B1F7D8E2BA3292C00D7E6EF /* RestaurantTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D8D2BA3292C00D7E6EF /* RestaurantTypes.swift */; };
 		2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E3E892B98C70E003383E7 /* AppDelegate.swift */; };
 		2B2E3E932B98C711003383E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E3E922B98C711003383E7 /* Assets.xcassets */; };
 		2B2E3E962B98C711003383E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E3E942B98C711003383E7 /* LaunchScreen.storyboard */; };
@@ -52,6 +53,7 @@
 		2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCellType.swift; sourceTree = "<group>"; };
 		2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B1F7D8D2BA3292C00D7E6EF /* RestaurantTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTypes.swift; sourceTree = "<group>"; };
 		2B2E3E862B98C70E003383E7 /* Hunger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hunger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B2E3E892B98C70E003383E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B2E3E922B98C711003383E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */,
+				2B1F7D8D2BA3292C00D7E6EF /* RestaurantTypes.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
 				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
 				2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */,
+				2B1F7D8E2BA3292C00D7E6EF /* RestaurantTypes.swift in Sources */,
 				2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */,
 				2B3DF5832B9F345C00FC43D6 /* RestaurantResultsViewController.swift in Sources */,
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,

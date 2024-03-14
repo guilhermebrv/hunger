@@ -17,4 +17,13 @@ extension UIView {
 			bottomAnchor.constraint(equalTo: superview.bottomAnchor)
 		])
 	}
+	public func pinWithSpace(to superview: UIView) {
+		translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			topAnchor.constraint(equalTo: superview.topAnchor, constant: 8),
+			leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 16),
+			trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -16),
+			bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -16)
+		])
+	}
 }
