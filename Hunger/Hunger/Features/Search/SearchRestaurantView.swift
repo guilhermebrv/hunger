@@ -39,12 +39,11 @@ extension SearchRestaurantView {
 		mapView.isZoomEnabled = true
 		mapView.isScrollEnabled = true
 		mapView.showsUserLocation = true
-		mapView.showsCompass = true
-		mapView.showsScale = true
-		mapView.showsTraffic = true
-		mapView.showsBuildings = true
+		// mapView.showsCompass = true
+		// mapView.showsScale = true
+		// mapView.showsTraffic = true
+		//mapView.showsBuildings = true
 		mapView.isUserInteractionEnabled = true
-		mapView.isPitchEnabled = true
 		mapView.layer.cornerRadius = 8
 
 		searchTableView.translatesAutoresizingMaskIntoConstraints = false

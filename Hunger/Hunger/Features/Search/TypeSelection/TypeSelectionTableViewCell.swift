@@ -57,6 +57,9 @@ extension TypeSelectionTableViewCell {
 		collectionView.backgroundColor = .secondarySystemBackground
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.isScrollEnabled = false
+		collectionView.allowsSelection = true
+		collectionView.isUserInteractionEnabled = true
+		collectionView.allowsMultipleSelection = false
 		collectionView.register(TypeSelectionCollectionViewCell.self,
 								forCellWithReuseIdentifier: TypeSelectionCollectionViewCell.identifier)
 	}

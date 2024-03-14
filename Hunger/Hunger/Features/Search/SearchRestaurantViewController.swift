@@ -13,7 +13,7 @@ class SearchRestaurantViewController: UIViewController {
 	var searchView: SearchRestaurantView?
 	var distanceCell: DistanceSliderTableViewCell?
 	var locationManager: CLLocationManager!
-	var userSelectedRadius: CLLocationDistance = 250
+	var userSelectedRadius: CLLocationDistance = 1250
 	var cellTypes: [[SearchTableViewCellType]] = [[.distance], [.restaurantType]]
 
 	override func loadView() {
@@ -51,13 +51,6 @@ class SearchRestaurantViewController: UIViewController {
 }
 
 extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
-//	func sliderValueChanged(value: Int) {
-//		let multipliedValue = value * 50
-//		searchView?.radiusLabel.text = "\(multipliedValue) m"
-//		userSelectedRadius = CLLocationDistance(multipliedValue)
-//		locationManager.startUpdatingLocation()
-//	}
-
 	func searchButtonClicked() {
 		let restResultsVC = RestaurantResultsViewController()
 		navigationController?.pushViewController(restResultsVC, animated: true)
@@ -75,8 +68,11 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
 			let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2, longitudinalMeters: userSelectedRadius * 2)
-			searchView?.mapView.setRegion(region, animated: true)
+			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2, 
+											longitudinalMeters: userSelectedRadius * 2)
+			DispatchQueue.main.async {
+				self.searchView?.mapView.setRegion(region, animated: true)
+			}
 			locationManager.stopUpdatingLocation()
 		}
 	}
@@ -85,7 +81,9 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	}
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		if status == .authorizedWhenInUse || status == .authorizedAlways {
-			locationManager.startUpdatingLocation()
+			DispatchQueue.main.async {
+				self.locationManager.startUpdatingLocation()
+			}
 		}
 	}
 }
@@ -98,11 +96,13 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch cellTypes[indexPath.section][indexPath.row] {
 		case .distance:
-			let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier, for: indexPath) as? DistanceSliderTableViewCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
+													 for: indexPath) as? DistanceSliderTableViewCell
 			cell?.delegate = self
 			return cell ?? UITableViewCell()
 		case .restaurantType:
-			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier, for: indexPath) as? TypeSelectionTableViewCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier,
+													 for: indexPath) as? TypeSelectionTableViewCell
 			return cell ?? UITableViewCell()
 		}
 	}

@@ -27,7 +27,12 @@ extension TypeSelectionCollectionViewCell {
 		button.pin(to: contentView)
 		button.frame = self.contentView.bounds
 		button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		button.addTarget(self, action: #selector(tappedButton), for: .primaryActionTriggered)
+		button.isUserInteractionEnabled = true
 		button.configuration = .gray()
 		button.configuration?.cornerStyle = .capsule
+	}
+	@objc func tappedButton(_ sender: UIButton) {
+		print(sender.titleLabel?.text ?? "")
 	}
 }
