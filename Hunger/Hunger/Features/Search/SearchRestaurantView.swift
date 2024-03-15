@@ -61,7 +61,7 @@ extension SearchRestaurantView {
 			mapView.topAnchor.constraint(equalToSystemSpacingBelow: safeAreaLayoutGuide.topAnchor, multiplier: 2),
 			mapView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: mapView.trailingAnchor, multiplier: 2),
-			mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+			mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25),
 
 			searchTableView.topAnchor.constraint(equalToSystemSpacingBelow: mapView.bottomAnchor, multiplier: 1),
 			searchTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
