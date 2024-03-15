@@ -12,9 +12,9 @@ import MapKit
 class SearchRestaurantViewController: UIViewController {
 	var searchView: SearchRestaurantView?
 	var distanceCell: DistanceSliderTableViewCell?
-	var locationManager: CLLocationManager!
+	var locationManager: CLLocationManager?
 	var userSelectedRadius: CLLocationDistance = 1250
-	var cellTypes: [[SearchTableViewCellType]] = [[.distance], [.restaurantType]]
+	var cellTypes: [[SearchTableViewCellType]] = [[.distance], [.restaurant, .search]]
 
 	override func loadView() {
 		super.loadView()
@@ -26,6 +26,7 @@ class SearchRestaurantViewController: UIViewController {
         super.viewDidLoad()
 		signProtocols()
 		setupLocationManager()
+		deliveryOverlay()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -50,39 +51,88 @@ class SearchRestaurantViewController: UIViewController {
 
 }
 
-extension SearchRestaurantViewController: SearchRestaurantViewDelegate {
-	func searchButtonClicked() {
-		let restResultsVC = RestaurantResultsViewController()
-		navigationController?.pushViewController(restResultsVC, animated: true)
-	}
-}
-
 extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	private func setupLocationManager() {
 		locationManager = CLLocationManager()
-		locationManager.delegate = self
-		locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		locationManager.requestWhenInUseAuthorization()
-		locationManager.startUpdatingLocation()
+		locationManager?.delegate = self
+		locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+		locationManager?.requestWhenInUseAuthorization()
+		locationManager?.startUpdatingLocation()
 	}
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
 			let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2, 
+			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2,
 											longitudinalMeters: userSelectedRadius * 2)
+
 			DispatchQueue.main.async {
 				self.searchView?.mapView.setRegion(region, animated: true)
 			}
-			locationManager.stopUpdatingLocation()
+			//locationManager?.stopUpdatingLocation()
 		}
 	}
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
 		// TODO: implement error retrieving the location function
 	}
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		if status == .authorizedWhenInUse || status == .authorizedAlways {
+		switch locationManager?.authorizationStatus {
+		case .authorizedAlways, .authorizedWhenInUse:
 			DispatchQueue.main.async {
-				self.locationManager.startUpdatingLocation()
+				self.locationManager?.startUpdatingLocation()
+			}
+		case .denied:
+			print() // HANDLE
+		case .notDetermined, .restricted:
+			print() // HANDLE
+		default:
+			print() // HANDLE
+		}
+	}
+}
+
+extension SearchRestaurantViewController: MKMapViewDelegate {
+	func deliveryOverlay() {
+		guard let location = locationManager?.location else { return }
+		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+		let circle = MKCircle(center: center, radius: userSelectedRadius)
+		searchView?.mapView.addOverlay(circle)
+	}
+
+	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+		if overlay.isKind(of: MKCircle.self){
+			let circleRenderer = MKCircleRenderer(overlay: overlay)
+			circleRenderer.fillColor = UIColor.systemBlue.withAlphaComponent(0.1)
+			circleRenderer.strokeColor = UIColor.systemBlue
+			circleRenderer.lineWidth = 1
+			return circleRenderer
+		}
+		return MKOverlayRenderer(overlay: overlay)
+	}
+
+	private func showPlacesOnMap() {
+		guard let map = searchView?.mapView else { return }
+		map.removeAnnotations(map.annotations)
+
+		guard let location = locationManager?.location else { return }
+		let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: userSelectedRadius/2,
+										longitudinalMeters: userSelectedRadius/2)
+
+		let request = MKLocalSearch.Request()
+		request.naturalLanguageQuery = "taco"
+		request.region = region
+
+		var resultsList: [MKLocalSearch.Response] = []
+
+		let search = MKLocalSearch(request: request)
+		search.start { response, error in
+			guard let response else { return } // handle error
+			resultsList.append(response)
+			print(resultsList)
+			for item in response.mapItems {
+				let annotation = MKPointAnnotation()
+				annotation.coordinate = item.placemark.coordinate
+				annotation.title = item.name
+				map.addAnnotation(annotation)
 			}
 		}
 	}
@@ -100,9 +150,14 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 													 for: indexPath) as? DistanceSliderTableViewCell
 			cell?.delegate = self
 			return cell ?? UITableViewCell()
-		case .restaurantType:
+		case .restaurant:
 			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier,
 													 for: indexPath) as? TypeSelectionTableViewCell
+			return cell ?? UITableViewCell()
+		case .search:
+			let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier,
+													 for: indexPath) as? SearchTableViewCell
+			cell?.delegate = self
 			return cell ?? UITableViewCell()
 		}
 	}
@@ -111,18 +166,32 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 		switch cellTypes[indexPath.section][indexPath.row] {
 		case .distance:
 			90
-		case .restaurantType:
-			500
+		case .restaurant:
+			430
+		case .search:
+			70
 		}
 	}
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case 0:
-			return "DISTANCE"
+			"DISTANCE"
 		case 1:
-			return "FOOD TYPE"
+			"FOOD TYPE"
 		default:
-			return nil
+			nil
+		}
+	}
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch section {
+		case 0:
+			return CGFloat(30)
+		case 1:
+			return CGFloat(20)
+		case 2:
+			return CGFloat(0)
+		default:
+			return CGFloat(0)
 		}
 	}
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -132,17 +201,23 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 
 extension SearchRestaurantViewController {
 	private func signProtocols() {
-		searchView?.delegate = self
+		searchView?.mapView.delegate = self
 		searchView?.searchTableView.delegate = self
 		searchView?.searchTableView.dataSource = self
 	}
 }
 
-extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate {
+extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate, SearchTableViewCellDelegate {
+	func tappedSearchButton() {
+		let restResultsVC = RestaurantResultsViewController()
+		navigationController?.pushViewController(restResultsVC, animated: true)
+	}
+
 	func sliderValueChanged(value: Int) {
 		let multipliedValue = value * 50
 		userSelectedRadius = CLLocationDistance(multipliedValue)
-		locationManager.startUpdatingLocation()
+		locationManager?.startUpdatingLocation()
+		showPlacesOnMap()
 	}
 }
 

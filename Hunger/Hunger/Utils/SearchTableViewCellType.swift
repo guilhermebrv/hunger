@@ -9,5 +9,6 @@ import Foundation
 
 enum SearchTableViewCellType {
 	case distance
-	case restaurantType
+	case restaurant
+	case search
 }

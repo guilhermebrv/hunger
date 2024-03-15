@@ -8,13 +8,13 @@
 import Foundation
 
 struct RestaurantTypes {
-	static let typeOfFood: [String] = ["Brazilian", "Hamburguer", "Pizza",
-									   "Falafel", "Vegan", "Vegetarian","Sushi",
-									   "Japanese", "Chinese", "Mexican", "Italian",
-									   "Fast Food", "Bakery", "Coffee", "Bar", "Pub",
+	static let typeOfFood: [String] = ["Brazilian", "Vegan", "Pizza", "Sushi",
+									   "Falafel", "Chinese", "Vegetarian", "Bar",
+									   "Japanese", "Hamburguer", "Mexican", "Italian",
+									   "Fast Food", "Bakery", "Coffee", "Pub",
 									   "Dessert", "Ice Cream", "Juice", "Salad", "Soup",
 									   "Sandwich", "Breakfast", "Lunch", "Dinner",
 									   "Snack", "Dessert", "Ice Cream", "Juice", "Salad",
-									   "Soup", "Sandwich", "Breakfast", "Lunch",
+									   "Soup", "Sandwich", "Lunch",
 									   "Dinner", "Snack"]
 }
