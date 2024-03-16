@@ -10,11 +10,10 @@ import CoreLocation
 import MapKit
 
 class SearchRestaurantViewController: UIViewController {
+	let viewModel: SearchRestaurantViewModel = SearchRestaurantViewModel()
 	var searchView: SearchRestaurantView?
-	var distanceCell: DistanceSliderTableViewCell?
 	var locationManager: CLLocationManager?
 	var userSelectedRadius: CLLocationDistance = 1250
-	var cellTypes: [[SearchTableViewCellType]] = [[.distance], [.restaurant, .search]]
 	var circleOverlay: MKCircle?
 
 	override func loadView() {
@@ -64,7 +63,6 @@ extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate, S
 		let restResultsVC = RestaurantResultsViewController()
 		navigationController?.pushViewController(restResultsVC, animated: true)
 	}
-
 	func sliderValueChanged(value: Int) {
 		let multipliedValue = value * 50
 		userSelectedRadius = CLLocationDistance(multipliedValue)
@@ -84,10 +82,8 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	}
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
-			let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-			let region = MKCoordinateRegion(center: center, latitudinalMeters: userSelectedRadius * 2,
-											longitudinalMeters: userSelectedRadius * 2)
-
+			let region = setRegion(radius: userSelectedRadius * 2.5)
+			
 			DispatchQueue.main.async { self.searchView?.mapView.setRegion(region, animated: true) }
 			setMapOverlay(radius: userSelectedRadius)
 			//locationManager?.stopUpdatingLocation()
@@ -182,61 +178,32 @@ extension SearchRestaurantViewController: MKMapViewDelegate {
 
 extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		cellTypes[section].count
-	}
-
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch cellTypes[indexPath.section][indexPath.row] {
-		case .distance:
-			let cell = tableView.dequeueReusableCell(withIdentifier: DistanceSliderTableViewCell.identifier,
-													 for: indexPath) as? DistanceSliderTableViewCell
-			cell?.delegate = self
-			return cell ?? UITableViewCell()
-		case .restaurant:
-			let cell = tableView.dequeueReusableCell(withIdentifier: TypeSelectionTableViewCell.identifier,
-													 for: indexPath) as? TypeSelectionTableViewCell
-			return cell ?? UITableViewCell()
-		case .search:
-			let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier,
-													 for: indexPath) as? SearchTableViewCell
-			cell?.delegate = self
-			return cell ?? UITableViewCell()
-		}
-	}
-
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		switch cellTypes[indexPath.section][indexPath.row] {
-		case .distance:
-			90
-		case .restaurant:
-			430
-		case .search:
-			70
-		}
-	}
-	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch section {
-		case 0:
-			"DISTANCE"
-		case 1:
-			"FOOD TYPE"
-		default:
-			nil
-		}
-	}
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch section {
-		case 0:
-			return CGFloat(30)
-		case 1:
-			return CGFloat(20)
-		case 2:
-			return CGFloat(0)
-		default:
-			return CGFloat(0)
-		}
+		viewModel.numberOfRowsInSection(in: section)
 	}
 	func numberOfSections(in tableView: UITableView) -> Int {
-		cellTypes.count
+		viewModel.numberOfSections
+	}
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = viewModel.getTableViewCell(for: tableView, index: indexPath)
+		switch cell {
+		case let distanceCell as DistanceSliderTableViewCell:
+			distanceCell.delegate = self
+		// case let typeCell as TypeSelectionTableViewCell:
+		//	typeCell.delegate = self
+		case let searchCell as SearchTableViewCell:
+			searchCell.delegate = self
+		default:
+			break
+		}
+		return cell
+	}
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		viewModel.titleForHeaderInSection(in: section)
+	}
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		viewModel.heightForHeaderInSection(in: section)
+	}
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		viewModel.heightForRowAt(index: indexPath)
 	}
 }
