@@ -10,6 +10,7 @@ import UIKit
 class TypeSelectionTableViewCell: UITableViewCell {
 	var collectionView: UICollectionView?
 	static let identifier = String(describing: TypeSelectionTableViewCell.self)
+	var callback: ((_ collectionViewCell: TypeSelectionCollectionViewCell) -> Void)?
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +34,7 @@ extension TypeSelectionTableViewCell: UICollectionViewDelegate, UICollectionView
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TypeSelectionCollectionViewCell.identifier,
 													  for: indexPath) as? TypeSelectionCollectionViewCell
 		cell?.button.setTitle(RestaurantTypes.typeOfFood[indexPath.row], for: .normal)
+		cell?.delegate = self
 		return cell ?? UICollectionViewCell()
 	}
 }
@@ -62,5 +64,11 @@ extension TypeSelectionTableViewCell {
 		collectionView.allowsMultipleSelection = false
 		collectionView.register(TypeSelectionCollectionViewCell.self,
 								forCellWithReuseIdentifier: TypeSelectionCollectionViewCell.identifier)
+	}
+}
+
+extension TypeSelectionTableViewCell: TypeSelectionCollectionViewCellDelegate {
+	func tappedTypeSelectionButton(in collection: TypeSelectionCollectionViewCell) {
+		callback?(collection)
 	}
 }

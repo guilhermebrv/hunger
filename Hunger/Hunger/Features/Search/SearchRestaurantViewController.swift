@@ -15,6 +15,8 @@ class SearchRestaurantViewController: UIViewController {
 	var locationManager: CLLocationManager?
 	var userSelectedRadius: CLLocationDistance = 1250
 	var circleOverlay: MKCircle?
+	var previousSelectedButton: UIButton?
+	var previousTypeTitleLabel: String?
 
 	override func loadView() {
 		super.loadView()
@@ -82,11 +84,10 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	}
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
-			let region = setRegion(radius: userSelectedRadius * 2.5)
-			
+			let region = setRegion(for: location, radius: userSelectedRadius * 2.5)
 			DispatchQueue.main.async { self.searchView?.mapView.setRegion(region, animated: true) }
 			setMapOverlay(radius: userSelectedRadius)
-			//locationManager?.stopUpdatingLocation()
+			// locationManager?.stopUpdatingLocation()
 		}
 	}
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
@@ -109,6 +110,7 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 extension SearchRestaurantViewController: MKMapViewDelegate {
 	func setMapOverlay(radius: CLLocationDistance) {
 		removeOverlay()
+
 		guard let location = locationManager?.location else { return }
 		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 		circleOverlay = MKCircle(center: center, radius: radius)
@@ -135,7 +137,7 @@ extension SearchRestaurantViewController: MKMapViewDelegate {
 //		guard let location = locationManager?.location else { return }
 //
 //		removeAnnotations(from: map)
-//		let region = setRegion(radius: userSelectedRadius)
+//		let region = setRegion(for: location, radius: userSelectedRadius)
 //
 //		let request = MKLocalSearch.Request()
 //		request.naturalLanguageQuery = "taco"
@@ -151,8 +153,7 @@ extension SearchRestaurantViewController: MKMapViewDelegate {
 //	private func removeAnnotations(from map: MKMapView) {
 //		map.removeAnnotations(map.annotations)
 //	}
-	private func setRegion(radius: CLLocationDistance) -> MKCoordinateRegion {
-		guard let location = locationManager?.location else { return MKCoordinateRegion() }
+	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
 		let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius,
 										longitudinalMeters: radius)
 		return region
@@ -188,14 +189,29 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 		switch cell {
 		case let distanceCell as DistanceSliderTableViewCell:
 			distanceCell.delegate = self
-		// case let typeCell as TypeSelectionTableViewCell:
-		//	typeCell.delegate = self
+		case let typeCell as TypeSelectionTableViewCell:
+			typeCell.callback = { collectionCell in
+				self.makeNewSelection(cell: collectionCell)
+			}
 		case let searchCell as SearchTableViewCell:
 			searchCell.delegate = self
 		default:
 			break
 		}
 		return cell
+	}
+	private func makeNewSelection(cell: TypeSelectionCollectionViewCell) {
+		if let previousButton = self.previousSelectedButton, let previousTitle = self.previousTypeTitleLabel {
+			var oldConfig = previousButton.configuration ?? .gray()
+			oldConfig = .gray()
+			oldConfig.cornerStyle = .capsule
+			oldConfig.title = previousTitle
+			previousButton.configuration = oldConfig
+		}
+		cell.button.configuration = .filled()
+		cell.button.configuration?.cornerStyle = .capsule
+		self.previousSelectedButton = cell.button
+		self.previousTypeTitleLabel = cell.button.currentTitle
 	}
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		viewModel.titleForHeaderInSection(in: section)
