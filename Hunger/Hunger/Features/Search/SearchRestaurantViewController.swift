@@ -15,8 +15,6 @@ class SearchRestaurantViewController: UIViewController {
 	var locationManager: CLLocationManager?
 	var userSelectedRadius: CLLocationDistance = 1250
 	var circleOverlay: MKCircle?
-	var previousSelectedButton: UIButton?
-	var previousTypeTitleLabel: String?
 
 	override func loadView() {
 		super.loadView()
@@ -33,22 +31,7 @@ class SearchRestaurantViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.title = "Search"
-		navigationItem.titleView?.tintColor = .label
-		let appearance = UINavigationBarAppearance()
-		appearance.configureWithTransparentBackground()
-		appearance.backgroundColor = .secondarySystemBackground
-
-		let blurEffect = UIBlurEffect(style: .regular)
-		let blurView = UIVisualEffectView(effect: blurEffect)
-		blurView.frame = self.navigationController?.navigationBar.bounds ?? CGRect.zero
-		blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-		appearance.backgroundEffect = blurEffect
-		navigationController?.navigationBar.standardAppearance = appearance
-		navigationController?.navigationBar.scrollEdgeAppearance = appearance
-		navigationController?.navigationBar.isTranslucent = true
+		configureNavBar(title: "Search")
 	}
 }
 
@@ -57,6 +40,22 @@ extension SearchRestaurantViewController {
 		searchView?.mapView.delegate = self
 		searchView?.searchTableView.delegate = self
 		searchView?.searchTableView.dataSource = self
+	}
+	private func makeNewSelection(cell: TypeSelectionCollectionViewCell) {
+		var previousSelectedButton: UIButton?
+		var previousTypeTitleLabel: String?
+
+		if let previousButton = previousSelectedButton, let previousTitle = previousTypeTitleLabel {
+			var oldConfig = previousButton.configuration ?? .gray()
+			oldConfig = .gray()
+			oldConfig.cornerStyle = .capsule
+			oldConfig.title = previousTitle
+			previousButton.configuration = oldConfig
+		}
+		cell.button.configuration = .filled()
+		cell.button.configuration?.cornerStyle = .capsule
+		previousSelectedButton = cell.button
+		previousTypeTitleLabel = cell.button.currentTitle
 	}
 }
 
@@ -70,7 +69,6 @@ extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate, S
 		userSelectedRadius = CLLocationDistance(multipliedValue)
 		locationManager?.startUpdatingLocation()
 		setMapOverlay(radius: userSelectedRadius)
-		//showPlacesOnMap()
 	}
 }
 
@@ -199,19 +197,6 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 			break
 		}
 		return cell
-	}
-	private func makeNewSelection(cell: TypeSelectionCollectionViewCell) {
-		if let previousButton = self.previousSelectedButton, let previousTitle = self.previousTypeTitleLabel {
-			var oldConfig = previousButton.configuration ?? .gray()
-			oldConfig = .gray()
-			oldConfig.cornerStyle = .capsule
-			oldConfig.title = previousTitle
-			previousButton.configuration = oldConfig
-		}
-		cell.button.configuration = .filled()
-		cell.button.configuration?.cornerStyle = .capsule
-		self.previousSelectedButton = cell.button
-		self.previousTypeTitleLabel = cell.button.currentTitle
 	}
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		viewModel.titleForHeaderInSection(in: section)
