@@ -46,6 +46,7 @@ extension SelectedRestaurantTableViewCellView {
 		nameLabel.translatesAutoresizingMaskIntoConstraints = false
 		nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
 		nameLabel.textColor = .label
+		nameLabel.numberOfLines = 0
 		nameLabel.text = "Name"
 
 		typeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -93,6 +94,7 @@ extension SelectedRestaurantTableViewCellView {
 
 			infoStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 			infoStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: restaurantImageView.trailingAnchor, multiplier: 1),
+			trailingAnchor.constraint(equalToSystemSpacingAfter: infoStackView.trailingAnchor, multiplier: 2),
 
 			bottomAnchor.constraint(equalToSystemSpacingBelow: distanceLabel.bottomAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: distanceLabel.trailingAnchor, multiplier: 2),

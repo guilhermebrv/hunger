@@ -35,12 +35,11 @@ extension DistanceSliderView {
 		bgview.backgroundColor = .tertiarySystemBackground
 		bgview.layer.cornerRadius = 8
 
-		// TODO: Fix slider values + slidervaluechanged on vc
 		radiusSlider.translatesAutoresizingMaskIntoConstraints = false
 		radiusSlider.isUserInteractionEnabled = true
 		radiusSlider.minimumValue = 1
 		radiusSlider.maximumValue = 60
-		radiusSlider.value = 25
+		radiusSlider.value = 30
 		radiusSlider.isContinuous = true
 		radiusSlider.tintColor = .systemBlue
 		radiusSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
@@ -75,6 +74,6 @@ extension DistanceSliderView {
 
 extension DistanceSliderView {
 	@objc private func sliderValueChanged() {
-		delegate?.sliderValueChanged(value: Int(radiusSlider.value))
+		delegate?.sliderValueChanged(value: Int(radiusSlider.value) * 50)
 	}
 }

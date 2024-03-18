@@ -12,9 +12,13 @@ import MapKit
 class SearchRestaurantViewController: UIViewController {
 	let viewModel: SearchRestaurantViewModel = SearchRestaurantViewModel()
 	var searchView: SearchRestaurantView?
+
 	var locationManager: CLLocationManager?
-	var userSelectedRadius: CLLocationDistance = 1250
+	var userSelectedRadius: CLLocationDistance = 1500
 	var circleOverlay: MKCircle?
+	var previousSelectedButton: UIButton?
+	var previousTypeTitleLabel: String?
+	var selectedType: String?
 
 	override func loadView() {
 		super.loadView()
@@ -26,7 +30,6 @@ class SearchRestaurantViewController: UIViewController {
         super.viewDidLoad()
 		setupLocationManager()
 		signProtocols()
-		setMapOverlay(radius: userSelectedRadius)
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -42,9 +45,6 @@ extension SearchRestaurantViewController {
 		searchView?.searchTableView.dataSource = self
 	}
 	private func makeNewSelection(cell: TypeSelectionCollectionViewCell) {
-		var previousSelectedButton: UIButton?
-		var previousTypeTitleLabel: String?
-
 		if let previousButton = previousSelectedButton, let previousTitle = previousTypeTitleLabel {
 			var oldConfig = previousButton.configuration ?? .gray()
 			oldConfig = .gray()
@@ -60,15 +60,19 @@ extension SearchRestaurantViewController {
 }
 
 extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate, SearchTableViewCellDelegate {
-	func tappedSearchButton() {
-		let restResultsVC = RestaurantResultsViewController()
-		navigationController?.pushViewController(restResultsVC, animated: true)
-	}
 	func sliderValueChanged(value: Int) {
-		let multipliedValue = value * 50
-		userSelectedRadius = CLLocationDistance(multipliedValue)
+		userSelectedRadius = CLLocationDistance(value)
 		locationManager?.startUpdatingLocation()
 		setMapOverlay(radius: userSelectedRadius)
+	}
+	func tappedSearchButton() {
+		if let locationManager, let selectedType {
+			let restResultsVC = RestaurantResultsViewController(locationManager: locationManager, 
+																radiusDistance: userSelectedRadius,
+																foodType: selectedType)
+			navigationController?.pushViewController(restResultsVC, animated: true)
+		}
+		// TODO: Handle error for when type is not selected (pop up alert)
 	}
 }
 
@@ -83,10 +87,16 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
 			let region = setRegion(for: location, radius: userSelectedRadius * 2.5)
-			DispatchQueue.main.async { self.searchView?.mapView.setRegion(region, animated: true) }
-			setMapOverlay(radius: userSelectedRadius)
-			// locationManager?.stopUpdatingLocation()
+			DispatchQueue.main.async {
+				self.searchView?.mapView.setRegion(region, animated: true)
+				self.setMapOverlay(radius: self.userSelectedRadius)
+			}
 		}
+	}
+	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
+		let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius,
+										longitudinalMeters: radius)
+		return region
 	}
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
 		// TODO: implement error retrieving the location function
@@ -107,20 +117,14 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 
 extension SearchRestaurantViewController: MKMapViewDelegate {
 	func setMapOverlay(radius: CLLocationDistance) {
-		removeOverlay()
-
+		if let circleOverlay { searchView?.mapView.removeOverlay(circleOverlay) }
 		guard let location = locationManager?.location else { return }
 		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 		circleOverlay = MKCircle(center: center, radius: radius)
 		searchView?.mapView.addOverlay(circleOverlay ?? MKCircle())
 	}
-	func removeOverlay() {
-		guard let circleOverlay else { return }
-		searchView?.mapView.removeOverlay(circleOverlay)
-	}
-
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-		if overlay.isKind(of: MKCircle.self){
+		if overlay.isKind(of: MKCircle.self) {
 			let circleRenderer = MKCircleRenderer(overlay: overlay)
 			circleRenderer.fillColor = UIColor.systemBlue.withAlphaComponent(0.1)
 			circleRenderer.strokeColor = UIColor.systemBlue
@@ -129,50 +133,6 @@ extension SearchRestaurantViewController: MKMapViewDelegate {
 		}
 		return MKOverlayRenderer(overlay: overlay)
 	}
-	// MARK: FUNCTIONS TO SHOW ANNOTATIONS ON MAP
-//	private func showPlacesOnMap() {
-//		guard let map = searchView?.mapView else { return }
-//		guard let location = locationManager?.location else { return }
-//
-//		removeAnnotations(from: map)
-//		let region = setRegion(for: location, radius: userSelectedRadius)
-//
-//		let request = MKLocalSearch.Request()
-//		request.naturalLanguageQuery = "taco"
-//		request.region = region
-//
-//		let search = MKLocalSearch(request: request)
-//		search.start { response, error in
-//			guard let response else { return } // handle error
-//			let filteredItems = self.radiusFilter(from: response)
-//			DispatchQueue.main.async { self.addAnotations(on: map, from: filteredItems) }
-//		}
-//	}
-//	private func removeAnnotations(from map: MKMapView) {
-//		map.removeAnnotations(map.annotations)
-//	}
-	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
-		let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius,
-										longitudinalMeters: radius)
-		return region
-	}
-//	private func radiusFilter(from response: MKLocalSearch.Response) -> [MKMapItem] {
-//		guard let location = locationManager?.location else { return [MKMapItem]() }
-//		let centerLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//		let filteredItems = response.mapItems.filter { item in
-//			let itemLocation = CLLocation(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
-//			return centerLocation.distance(from: itemLocation) <= self.userSelectedRadius
-//		}
-//		return filteredItems
-//	}
-//	private func addAnotations(on map: MKMapView, from filteredItems: [MKMapItem]) {
-//		for item in filteredItems {
-//			let annotation = MKPointAnnotation()
-//			annotation.coordinate = item.placemark.coordinate
-//			annotation.title = item.name
-//			map.addAnnotation(annotation)
-//		}
-//	}
 }
 
 extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSource {
@@ -190,6 +150,7 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 		case let typeCell as TypeSelectionTableViewCell:
 			typeCell.callback = { collectionCell in
 				self.makeNewSelection(cell: collectionCell)
+				self.selectedType = collectionCell.button.currentTitle ?? ""
 			}
 		case let searchCell as SearchTableViewCell:
 			searchCell.delegate = self

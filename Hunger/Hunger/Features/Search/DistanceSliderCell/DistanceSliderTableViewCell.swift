@@ -31,8 +31,7 @@ class DistanceSliderTableViewCell: UITableViewCell {
 
 extension DistanceSliderTableViewCell: DistanceSliderViewDelegate {
 	func sliderValueChanged(value: Int) {
-		let multipliedValue = value * 50
-		view.radiusLabel.text = "Search for restaurants in a \(multipliedValue)m radius"
+		view.radiusLabel.text = "Search for restaurants in a \(value)m radius"
 		delegate?.sliderValueChanged(value: value)
 	}
 }

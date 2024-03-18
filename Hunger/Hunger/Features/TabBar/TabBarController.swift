@@ -16,8 +16,8 @@ class TabBarController: UITabBarController {
 
 	private func setupTabBar() {
 		let search = UINavigationController(rootViewController: SearchRestaurantViewController())
-		let favorites = UINavigationController(rootViewController: RestaurantResultsViewController())
-		setViewControllers([search, favorites], animated: false)
+		//let favorites = UINavigationController(rootViewController: RestaurantResultsViewController(foodType: <#String?#>))
+		setViewControllers([search], animated: false)
 
 		let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
 		tabBarAppearance.configureWithDefaultBackground()
@@ -32,7 +32,7 @@ class TabBarController: UITabBarController {
 		guard let items = tabBar.items else { return }
 		items[0].image = UIImage(systemName: "fork.knife")
 		items[0].title = "Search"
-		items[1].image = UIImage(systemName: "star")
-		items[1].title = "Favorites"
+		//items[1].image = UIImage(systemName: "star")
+		//items[1].title = "Favorites"
 	}
 }

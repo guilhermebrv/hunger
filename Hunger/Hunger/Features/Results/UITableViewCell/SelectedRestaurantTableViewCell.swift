@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class SelectedRestaurantTableViewCell: UITableViewCell {
 	private let view = SelectedRestaurantTableViewCellView()
@@ -19,5 +20,11 @@ class SelectedRestaurantTableViewCell: UITableViewCell {
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+extension SelectedRestaurantTableViewCell {
+	public func configureCell(with restaurant: MKMapItem) {
+		view.nameLabel.text = restaurant.name
 	}
 }
