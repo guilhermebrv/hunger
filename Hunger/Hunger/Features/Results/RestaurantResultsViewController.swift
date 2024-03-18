@@ -9,18 +9,13 @@ import UIKit
 import CoreLocation
 import MapKit
 
-protocol RestaurantResultsViewControllerDelegate: AnyObject {
-	func selectedRestaurant()
-}
-
 class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate {
-	private let viewModel: RestaurantResultsViewModel = RestaurantResultsViewModel()
+	private var viewModel: RestaurantResultsViewModel = RestaurantResultsViewModel()
 	var listView: RestaurantResultsView?
+	
 	let locationManager: CLLocationManager?
 	let radiusDistance: CLLocationDistance?
 	let foodType: String?
-
-	var restaurantsResponse: [MKMapItem]? // remove to view model
 
 	init(locationManager: CLLocationManager, radiusDistance: CLLocationDistance, foodType: String) {
 		self.locationManager = locationManager
@@ -42,7 +37,7 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 		signProtocols()
-		showPlacesOnMap()
+		showRestaurantsList()
     }
 
 //	let actionClosure = { (action: UIAction) in
@@ -69,7 +64,6 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 	}
 
 	@objc func togglePullDownMenu() {
-		
 	}
 }
 
@@ -82,26 +76,25 @@ extension RestaurantResultsViewController {
 
 extension RestaurantResultsViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		//viewModel.numberOfRowsInSection
-		guard let restaurantsResponse else { return 0 }
-		return restaurantsResponse.count
+		viewModel.numberOfRowsInSection
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let restaurants = viewModel.restaurantsList else { return UITableViewCell() }
+
 		let cell = tableView.dequeueReusableCell(withIdentifier: SelectedRestaurantTableViewCell.identifier,
 												 for: indexPath) as? SelectedRestaurantTableViewCell
-		guard let restaurantsResponse else { return UITableViewCell() }
-
-		cell?.configureCell(with: restaurantsResponse[indexPath.row])
+		cell?.configureCell(with: restaurants[indexPath.row])
 		return cell ?? UITableViewCell()
 	}
+
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		viewModel.heightForRowAt
 	}
 }
 
 extension RestaurantResultsViewController {
-		private func showPlacesOnMap() {
+		private func showRestaurantsList() {
 			//guard let map = searchView?.mapView else { return }
 			guard let location = locationManager?.location, let radiusDistance, let foodType else { return }
 
@@ -114,23 +107,23 @@ extension RestaurantResultsViewController {
 	
 			let search = MKLocalSearch(request: request)
 			search.start { response, error in
-				guard let response else { return } // handle error
-				let filteredItems = self.radiusFilter(from: response)
-				//DispatchQueue.main.async { self.addAnotations(on: map, from: filteredItems) }
-				self.restaurantsResponse = filteredItems
+				self.searchRestaurants(response, error)
 				DispatchQueue.main.async {
 					self.listView?.restaurantsTableView.reloadData()
 				}
 			}
 		}
-//		private func removeAnnotations(from map: MKMapView) {
-//			map.removeAnnotations(map.annotations)
-//		}
 		private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
 			let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius,
 											longitudinalMeters: radius)
 			return region
 		}
+	private func searchRestaurants(_ response: MKLocalSearch.Response?, _ error: Error?) {
+		guard let response else { return } // handle error
+		let filteredItems = self.radiusFilter(from: response)
+		self.viewModel.restaurantsList = filteredItems
+		//DispatchQueue.main.async { self.addAnotations(on: map, from: filteredItems) }
+	}
 		private func radiusFilter(from response: MKLocalSearch.Response) -> [MKMapItem] {
 			guard let location = locationManager?.location, let radiusDistance else { return [MKMapItem]() }
 			let centerLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -140,7 +133,13 @@ extension RestaurantResultsViewController {
 			}
 			return filteredItems
 		}
-//		private func addAnotations(on map: MKMapView, from filteredItems: [MKMapItem]) {
+}
+
+//		private func removeAnnotations(from map: MKMapView) {
+//			map.removeAnnotations(map.annotations)
+//		}
+
+// private func addAnotations(on map: MKMapView, from filteredItems: [MKMapItem]) {
 //			for item in filteredItems {
 //				let annotation = MKPointAnnotation()
 //				annotation.coordinate = item.placemark.coordinate
@@ -148,4 +147,3 @@ extension RestaurantResultsViewController {
 //				map.addAnnotation(annotation)
 //			}
 //		}
-}

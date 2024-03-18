@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import MapKit
 
 struct RestaurantResultsViewModel {
+	var restaurantsList: [MKMapItem]?
+
 	public var numberOfRowsInSection: Int {
-		10
+		guard let restaurantsList else { return 0 }
+		return restaurantsList.count
 	}
+
 	public var heightForRowAt: CGFloat {
 		165
 	}
