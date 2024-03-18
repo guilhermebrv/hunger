@@ -66,6 +66,7 @@ extension SelectedRestaurantTableViewCellView {
 
 		starImageView.translatesAutoresizingMaskIntoConstraints = false
 		starImageView.image = UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal)
+		starImageView.contentMode = .scaleAspectFit
 		starImageView.tintColor = .systemYellow
 
 		ratingLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -92,16 +93,16 @@ extension SelectedRestaurantTableViewCellView {
 			restaurantImageView.widthAnchor.constraint(equalToConstant: 150),
 			restaurantImageView.heightAnchor.constraint(equalToConstant: 100),
 
+			infoStackView.topAnchor.constraint(equalToSystemSpacingBelow: starImageView.bottomAnchor, multiplier: 1),
 			infoStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 			infoStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: restaurantImageView.trailingAnchor, multiplier: 1),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: infoStackView.trailingAnchor, multiplier: 2),
 
 			bottomAnchor.constraint(equalToSystemSpacingBelow: distanceLabel.bottomAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: distanceLabel.trailingAnchor, multiplier: 2),
-
 			trailingAnchor.constraint(equalToSystemSpacingAfter: ratingLabel.trailingAnchor, multiplier: 2),
-			ratingLabel.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1.5),
 
+			starImageView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1.5),
 			starImageView.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor),
 			ratingLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: starImageView.trailingAnchor, multiplier: 0.5)
 		])
