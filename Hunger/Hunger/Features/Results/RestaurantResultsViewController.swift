@@ -72,6 +72,11 @@ extension RestaurantResultsViewController {
 		listView?.restaurantsTableView.delegate = self
 		listView?.restaurantsTableView.dataSource = self
 	}
+	private func distanceFromUser(restaurant: MKMapItem) -> Int {
+		guard let currentLocation = locationManager?.location else { return 0 }
+		let distanceInMeters = currentLocation.distance(from: restaurant.placemark.location ?? CLLocation())
+		return Int(distanceInMeters)
+	}
 }
 
 extension RestaurantResultsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -84,7 +89,9 @@ extension RestaurantResultsViewController: UITableViewDelegate, UITableViewDataS
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: SelectedRestaurantTableViewCell.identifier,
 												 for: indexPath) as? SelectedRestaurantTableViewCell
-		cell?.configureCell(with: restaurants[indexPath.row])
+		cell?.configureCell(with: restaurants[indexPath.row], 
+							type: foodType ?? "",
+							distance: distanceFromUser(restaurant: restaurants[indexPath.row]))
 		return cell ?? UITableViewCell()
 	}
 

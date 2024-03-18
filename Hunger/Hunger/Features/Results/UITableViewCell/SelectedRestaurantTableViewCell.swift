@@ -24,7 +24,9 @@ class SelectedRestaurantTableViewCell: UITableViewCell {
 }
 
 extension SelectedRestaurantTableViewCell {
-	public func configureCell(with restaurant: MKMapItem) {
+	public func configureCell(with restaurant: MKMapItem, type: String, distance: Int) {
 		view.nameLabel.text = restaurant.name
+		view.typeLabel.text = type
+		view.distanceLabel.text = "\(distance)m"
 	}
 }
