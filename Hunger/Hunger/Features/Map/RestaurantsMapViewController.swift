@@ -11,11 +11,11 @@ import MapKit
 
 class RestaurantsMapViewController: UIViewController {
 	var mapView: RestaurantsMapView?
-	let locationManager: CLLocationManager?
-	let radiusDistance: CLLocationDistance?
-	let restaurantsList: [MKMapItem]?
+	let locationManager: CLLocationManager
+	let radiusDistance: CLLocationDistance
+	let restaurantsList: [MKMapItem]
 
-	init(locationManager: CLLocationManager?, radiusDistance: CLLocationDistance?, restaurantsList: [MKMapItem]?) {
+	init(locationManager: CLLocationManager, radiusDistance: CLLocationDistance, restaurantsList: [MKMapItem]) {
 		self.locationManager = locationManager
 		self.radiusDistance = radiusDistance
 		self.restaurantsList = restaurantsList
@@ -34,23 +34,43 @@ class RestaurantsMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		locationManager?.delegate = self
+		signProtocols()
 		showRestaurantsOnMap()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		locationManager?.startUpdatingLocation()
-		locationManager?.startUpdatingHeading()
+		locationManager.startUpdatingLocation()
+		locationManager.startUpdatingHeading()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		locationManager.stopUpdatingHeading()
+	}
+}
+
+extension RestaurantsMapViewController {
+	private func signProtocols() {
+		locationManager.delegate = self
+		mapView?.delegate = self
+	}
+}
+
+extension RestaurantsMapViewController: RestaurantsMapViewDelegate {
+	func didTapCloseButton() {
+		dismiss(animated: true, completion: nil)
 	}
 }
 
 extension RestaurantsMapViewController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if let location = locations.last, let radiusDistance {
-			let region = setRegion(for: location, radius: radiusDistance * 2.5)
-			DispatchQueue.main.async { self.mapView?.mapView.setRegion(region, animated: true) }
-			locationManager?.stopUpdatingLocation()
+		if let location = locations.last {
+			DispatchQueue.main.async {
+				let region = self.setRegion(for: location, radius: self.radiusDistance * 3)
+				self.mapView?.mapView.setRegion(region, animated: true)
+			}
+			locationManager.stopUpdatingLocation()
 		}
 	}
 	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
@@ -63,7 +83,7 @@ extension RestaurantsMapViewController: CLLocationManagerDelegate {
 
 extension RestaurantsMapViewController: MKMapViewDelegate {
 	private func showRestaurantsOnMap() {
-		guard let restaurantsList, let map = mapView?.mapView else { return }
+		guard let map = mapView?.mapView else { return }
 		removeAnnotations(from: map)
 		addAnotations(on: map, from: restaurantsList)
 	}

@@ -8,9 +8,15 @@
 import UIKit
 import MapKit
 
+protocol RestaurantsMapViewDelegate: AnyObject {
+	func didTapCloseButton()
+}
+
 class RestaurantsMapView: UIView {
 	let mapView = MKMapView()
 	var userTrackingButton = MKUserTrackingButton(mapView: MKMapView())
+	let closeButton = UIButton(frame: CGRect(x: 16, y: 16, width: 45, height: 45))
+	weak var delegate: RestaurantsMapViewDelegate?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -37,16 +43,31 @@ extension RestaurantsMapView {
 		mapView.userTrackingMode = .followWithHeading
 		mapView.isUserInteractionEnabled = true
 		mapView.layer.cornerRadius = 8
+		if #available(iOS 13.0, *) {
+			mapView.pointOfInterestFilter = .excludingAll
+		}
 
 		userTrackingButton = MKUserTrackingButton(mapView: mapView)
 		userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
 		userTrackingButton.layer.backgroundColor = UIColor.secondarySystemBackground.cgColor
-		userTrackingButton.clipsToBounds = true
+		userTrackingButton.clipsToBounds = false
 		userTrackingButton.layer.cornerRadius = 5
+		userTrackingButton.layer.cornerRadius = 5
+		userTrackingButton.layer.shadowOpacity = 0.5
+		userTrackingButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+
+		closeButton.backgroundColor = .secondarySystemBackground
+		closeButton.setTitle("X", for: .normal)
+		closeButton.setTitleColor(.systemBlue, for: .normal)
+		closeButton.layer.cornerRadius = 5
+		closeButton.layer.shadowOpacity = 0.5
+		closeButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+		closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
 	}
 	private func addElements() {
 		addSubview(mapView)
-		addSubview(userTrackingButton)
+		mapView.addSubview(userTrackingButton)
+		mapView.addSubview(closeButton)
 	}
 	private func configConstraints() {
 		NSLayoutConstraint.activate([
@@ -56,7 +77,13 @@ extension RestaurantsMapView {
 			mapView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
 			userTrackingButton.topAnchor.constraint(equalToSystemSpacingBelow: mapView.topAnchor, multiplier: 2),
-			mapView.trailingAnchor.constraint(equalToSystemSpacingAfter: userTrackingButton.trailingAnchor, multiplier: 2),
+			mapView.trailingAnchor.constraint(equalToSystemSpacingAfter: userTrackingButton.trailingAnchor, multiplier: 2)
 		])
+	}
+}
+
+extension RestaurantsMapView {
+	@objc func didTapCloseButton() {
+		delegate?.didTapCloseButton()
 	}
 }
