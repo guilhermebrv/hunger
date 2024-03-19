@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol RestaurantResultsViewDelegate: AnyObject {
+	func tappedMapsButton()
+}
+
 class RestaurantResultsView: UIView {
 	let restaurantsTableView = UITableView()
 	let mapsButton = UIButton(type: .system)
+	weak var delegate: RestaurantResultsViewDelegate?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -41,6 +46,7 @@ extension RestaurantResultsView {
 		mapsButton.configuration?.image = UIImage(systemName: "location.circle.fill")
 		mapsButton.configuration?.imagePadding = 6
 		mapsButton.configuration?.cornerStyle = .capsule
+		mapsButton.addTarget(self, action: #selector(tappedMapsButton), for: .primaryActionTriggered)
 	}
 	private func addElements() {
 		addSubview(restaurantsTableView)
@@ -57,6 +63,12 @@ extension RestaurantResultsView {
 			mapsButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
 			mapsButton.centerXAnchor.constraint(equalTo: centerXAnchor)
 		])
+	}
+}
+
+extension RestaurantResultsView {
+	@objc private func tappedMapsButton() {
+		delegate?.tappedMapsButton()
 	}
 }
 

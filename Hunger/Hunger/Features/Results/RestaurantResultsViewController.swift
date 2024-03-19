@@ -12,7 +12,8 @@ import MapKit
 class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate {
 	private var viewModel: RestaurantResultsViewModel = RestaurantResultsViewModel()
 	var listView: RestaurantResultsView?
-	
+	var restaurantsList: [MKMapItem]?
+
 	let locationManager: CLLocationManager?
 	let radiusDistance: CLLocationDistance?
 	let foodType: String?
@@ -71,6 +72,7 @@ extension RestaurantResultsViewController {
 	private func signProtocols() {
 		listView?.restaurantsTableView.delegate = self
 		listView?.restaurantsTableView.dataSource = self
+		listView?.delegate = self
 	}
 	private func distanceFromUser(restaurant: MKMapItem) -> Int {
 		guard let currentLocation = locationManager?.location else { return 0 }
@@ -102,22 +104,20 @@ extension RestaurantResultsViewController: UITableViewDelegate, UITableViewDataS
 
 extension RestaurantResultsViewController {
 		private func showRestaurantsList() {
-			//guard let map = searchView?.mapView else { return }
+			// guard let map = searchView?.mapView else { return }
 			guard let location = locationManager?.location, let radiusDistance, let foodType else { return }
 
-			//removeAnnotations(from: map)
+			// removeAnnotations(from: map)
 			let region = setRegion(for: location, radius: radiusDistance)
 
 			let request = MKLocalSearch.Request()
 			request.naturalLanguageQuery = foodType
 			request.region = region
-	
+
 			let search = MKLocalSearch(request: request)
 			search.start { response, error in
 				self.searchRestaurants(response, error)
-				DispatchQueue.main.async {
-					self.listView?.restaurantsTableView.reloadData()
-				}
+				DispatchQueue.main.async { self.listView?.restaurantsTableView.reloadData() }
 			}
 		}
 		private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
@@ -129,28 +129,24 @@ extension RestaurantResultsViewController {
 		guard let response else { return } // handle error
 		let filteredItems = self.radiusFilter(from: response)
 		self.viewModel.restaurantsList = filteredItems
-		//DispatchQueue.main.async { self.addAnotations(on: map, from: filteredItems) }
+		// DispatchQueue.main.async { self.addAnotations(on: map, from: filteredItems) }
 	}
 		private func radiusFilter(from response: MKLocalSearch.Response) -> [MKMapItem] {
 			guard let location = locationManager?.location, let radiusDistance else { return [MKMapItem]() }
 			let centerLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 			let filteredItems = response.mapItems.filter { item in
-				let itemLocation = CLLocation(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
+				let itemLocation = CLLocation(latitude: item.placemark.coordinate.latitude,
+											  longitude: item.placemark.coordinate.longitude)
 				return centerLocation.distance(from: itemLocation) <= self.radiusDistance ?? 0
 			}
-			return filteredItems
+			restaurantsList = filteredItems
+			return restaurantsList ?? [MKMapItem]()
 		}
 }
 
-//		private func removeAnnotations(from map: MKMapView) {
-//			map.removeAnnotations(map.annotations)
-//		}
-
-// private func addAnotations(on map: MKMapView, from filteredItems: [MKMapItem]) {
-//			for item in filteredItems {
-//				let annotation = MKPointAnnotation()
-//				annotation.coordinate = item.placemark.coordinate
-//				annotation.title = item.name
-//				map.addAnnotation(annotation)
-//			}
-//		}
+extension RestaurantResultsViewController: RestaurantResultsViewDelegate {
+	func tappedMapsButton() {
+		let modal = RestaurantsMapViewController(locationManager: locationManager, radiusDistance: radiusDistance, restaurantsList: restaurantsList)
+		present(modal, animated: true)
+	}
+}

@@ -17,6 +17,6 @@ struct RestaurantResultsViewModel {
 	}
 
 	public var heightForRowAt: CGFloat {
-		165
+		170
 	}
 }
