@@ -33,6 +33,7 @@
 		2BC11B4F2BA45A96001985E6 /* SearchTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC11B4E2BA45A96001985E6 /* SearchTableViewCellView.swift */; };
 		2BC11B512BA4C549001985E6 /* SearchRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC11B502BA4C549001985E6 /* SearchRestaurantViewModel.swift */; };
 		2BD8E31F2BAAFDC800802F3D /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8E31E2BAAFDC800802F3D /* CustomAnnotation.swift */; };
+		2BD8E3222BAB0E9500802F3D /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8E3212BAB0E9500802F3D /* RestaurantDetailsViewController.swift */; };
 		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
 		2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */; };
 		2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */; };
@@ -86,6 +87,7 @@
 		2BC11B4E2BA45A96001985E6 /* SearchTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCellView.swift; sourceTree = "<group>"; };
 		2BC11B502BA4C549001985E6 /* SearchRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewModel.swift; sourceTree = "<group>"; };
 		2BD8E31E2BAAFDC800802F3D /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		2BD8E3212BAB0E9500802F3D /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
 		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		2BA66A602BA88B1700282AB2 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				2BD8E3202BAB0E8600802F3D /* Details */,
 				2BA66A612BA88B2A00282AB2 /* RestaurantsMapViewController.swift */,
 				2BA66A632BA88B3600282AB2 /* RestaurantsMapView.swift */,
 			);
@@ -297,6 +300,14 @@
 				2BC11B4E2BA45A96001985E6 /* SearchTableViewCellView.swift */,
 			);
 			path = SearchCell;
+			sourceTree = "<group>";
+		};
+		2BD8E3202BAB0E8600802F3D /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				2BD8E3212BAB0E9500802F3D /* RestaurantDetailsViewController.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		2BE9F0DF2BA09BFD006AFB36 /* TabBar */ = {
@@ -466,6 +477,7 @@
 				2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */,
 				2BA66A642BA88B3600282AB2 /* RestaurantsMapView.swift in Sources */,
 				2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */,
+				2BD8E3222BAB0E9500802F3D /* RestaurantDetailsViewController.swift in Sources */,
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
 				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
 				2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */,

@@ -15,7 +15,7 @@ protocol RestaurantsMapViewDelegate: AnyObject {
 class RestaurantsMapView: UIView {
 	let mapView = MKMapView()
 	var userTrackingButton = MKUserTrackingButton(mapView: MKMapView())
-	let closeButton = UIButton(frame: CGRect(x: 16, y: 16, width: 45, height: 45))
+	let closeButton = UIButton(frame: CGRect(x: 16, y: 56, width: 45, height: 45))
 	weak var delegate: RestaurantsMapViewDelegate?
 
 	override init(frame: CGRect) {
@@ -76,7 +76,7 @@ extension RestaurantsMapView {
 			mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			mapView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-			userTrackingButton.topAnchor.constraint(equalToSystemSpacingBelow: mapView.topAnchor, multiplier: 2),
+			userTrackingButton.topAnchor.constraint(equalToSystemSpacingBelow: mapView.topAnchor, multiplier: 7),
 			mapView.trailingAnchor.constraint(equalToSystemSpacingAfter: userTrackingButton.trailingAnchor, multiplier: 2)
 		])
 	}

@@ -147,6 +147,7 @@ extension RestaurantResultsViewController {
 extension RestaurantResultsViewController: RestaurantResultsViewDelegate {
 	func tappedMapsButton() {
 		let modal = RestaurantsMapViewController(locationManager: locationManager, radiusDistance: radiusDistance, foodType: foodType, restaurantsList: restaurantsList)
+		modal.modalPresentationStyle = .fullScreen
 		present(modal, animated: true)
 	}
 }

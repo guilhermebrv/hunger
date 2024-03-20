@@ -73,36 +73,60 @@ extension RestaurantsMapViewController: CLLocationManagerDelegate {
 }
 
 extension RestaurantsMapViewController: MKMapViewDelegate {
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		if let customAnnotation = view.annotation as? CustomAnnotation {
+			mapView.deselectAnnotation(customAnnotation, animated: false)
+
+			presentRestaurantDetails()
+		}
+	}
 	func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
-		if let customAnnotation = annotation as? CustomAnnotation {
-				let identifier = "CustomAnnotation"
-				var markerView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
-
-				if markerView == nil {
-					markerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-					markerView?.canShowCallout = true
-				} else {
-					markerView?.annotation = annotation
-				}
-
-				if let markerView = markerView {  
-					configMarkerView(for: markerView, annotation: customAnnotation)
-				}
-				return markerView
-			}
+		if let cluster = annotation as? MKClusterAnnotation {
+			return configClusterView(map: mapView, annotation: cluster)
+		} else if let customAnnotation = annotation as? CustomAnnotation {
+			return configMarkerView(map: mapView, annotation: customAnnotation)
+		}
 		return nil
 	}
-	private func configMarkerView(for marker: MKMarkerAnnotationView, annotation: CustomAnnotation) {
+	private func configClusterView(map: MKMapView, annotation cluster: MKClusterAnnotation) -> MKMarkerAnnotationView {
+		let identifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
+		var clusterView = map.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+
+		if clusterView == nil {
+			clusterView = MKMarkerAnnotationView(annotation: cluster, reuseIdentifier: identifier)
+		}
+		clusterView?.annotation = cluster
+		clusterView?.markerTintColor = .systemOrange
+		clusterView?.glyphTintColor = .secondarySystemBackground
+		clusterView?.glyphText = String(cluster.memberAnnotations.count)
+
+		return clusterView ?? MKMarkerAnnotationView()
+	}
+	private func configMarkerView(map: MKMapView, annotation: CustomAnnotation) -> MKMarkerAnnotationView {
+		let identifier = "CustomAnnotation"
+		var markerView = map.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+
+		if markerView == nil {
+			markerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+			markerView?.canShowCallout = true
+		} else {
+			markerView?.annotation = annotation
+		}
+
+		markerView?.clusteringIdentifier = "cluster"
+		if let markerView = markerView { designMarkerView(for: markerView, annotation: annotation) }
+
+		return markerView ?? MKMarkerAnnotationView()
+	}
+	private func designMarkerView(for marker: MKMarkerAnnotationView, annotation: CustomAnnotation) {
 		marker.glyphTintColor = .secondarySystemBackground
 		marker.markerTintColor = .systemOrange
 
 		switch annotation.category {
 		case "Cafe", "Bakery":
 			marker.glyphImage = UIImage(systemName: "cup.and.saucer.fill")
-			marker.markerTintColor = .systemYellow
 		default:
 			marker.glyphImage = UIImage(systemName: "fork.knife")
-			marker.markerTintColor = .systemOrange
 		}
 	}
 	private func showRestaurantsOnMap() {
@@ -128,5 +152,15 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 											  category: category)
 			map.addAnnotation(annotation)
 		}
+	}
+}
+
+extension RestaurantsMapViewController {
+	func presentRestaurantDetails() {
+		let restaurantDetails = RestaurantDetailsViewController()
+		restaurantDetails.modalPresentationStyle = .pageSheet
+		restaurantDetails.sheetPresentationController?.prefersGrabberVisible = true
+		restaurantDetails.sheetPresentationController?.detents = [.medium(), .large()]
+		present(restaurantDetails, animated: true)
 	}
 }
