@@ -32,6 +32,7 @@
 		2BC11B4D2BA45A48001985E6 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC11B4C2BA45A48001985E6 /* SearchTableViewCell.swift */; };
 		2BC11B4F2BA45A96001985E6 /* SearchTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC11B4E2BA45A96001985E6 /* SearchTableViewCellView.swift */; };
 		2BC11B512BA4C549001985E6 /* SearchRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC11B502BA4C549001985E6 /* SearchRestaurantViewModel.swift */; };
+		2BD8E31F2BAAFDC800802F3D /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8E31E2BAAFDC800802F3D /* CustomAnnotation.swift */; };
 		2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */; };
 		2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */; };
 		2BE9F0E32BA0D5A5006AFB36 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */; };
@@ -84,6 +85,7 @@
 		2BC11B4C2BA45A48001985E6 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		2BC11B4E2BA45A96001985E6 /* SearchTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCellView.swift; sourceTree = "<group>"; };
 		2BC11B502BA4C549001985E6 /* SearchRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRestaurantViewModel.swift; sourceTree = "<group>"; };
+		2BD8E31E2BAAFDC800802F3D /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		2BE9F0DD2BA07CB1006AFB36 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		2BE9F0E02BA09C1B006AFB36 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2BE9F0E22BA0D5A5006AFB36 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */,
 				2B1F7D8D2BA3292C00D7E6EF /* RestaurantTypes.swift */,
+				2BD8E31E2BAAFDC800802F3D /* CustomAnnotation.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				2BC11B512BA4C549001985E6 /* SearchRestaurantViewModel.swift in Sources */,
 				2BE9F0DE2BA07CB1006AFB36 /* UIView + Extension.swift in Sources */,
 				2B1F7D8C2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift in Sources */,
+				2BD8E31F2BAAFDC800802F3D /* CustomAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
