@@ -54,6 +54,7 @@ extension RestaurantsMapViewController {
 	private func signProtocols() {
 		locationManager.delegate = self
 		mapView?.delegate = self
+		mapView?.mapView.delegate = self
 	}
 }
 
@@ -65,19 +66,7 @@ extension RestaurantsMapViewController: RestaurantsMapViewDelegate {
 
 extension RestaurantsMapViewController: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if let location = locations.last {
-			DispatchQueue.main.async {
-				let region = self.setRegion(for: location, radius: self.radiusDistance * 3)
-				self.mapView?.mapView.setRegion(region, animated: true)
-			}
 			locationManager.stopUpdatingLocation()
-		}
-	}
-	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
-		let region = MKCoordinateRegion(center: location.coordinate,
-										latitudinalMeters: radius,
-										longitudinalMeters: radius)
-		return region
 	}
 }
 
@@ -86,6 +75,7 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 		guard let map = mapView?.mapView else { return }
 		removeAnnotations(from: map)
 		addAnotations(on: map, from: restaurantsList)
+		map.showAnnotations(map.annotations, animated: true)
 	}
 	private func removeAnnotations(from map: MKMapView) {
 		map.removeAnnotations(map.annotations)

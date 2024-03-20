@@ -27,25 +27,23 @@ class SearchRestaurantView: UIView {
 
 extension SearchRestaurantView {
 	private func createElements() {
-		// TODO: REFACTOR TO PUT ONLY RELEVANT PROPERTIES
 		mapView.translatesAutoresizingMaskIntoConstraints = false
 		mapView.mapType = .standard
 		mapView.isZoomEnabled = false
 		mapView.isScrollEnabled = false
 		mapView.showsUserLocation = true
-		// mapView.showsCompass = true
-		// mapView.showsScale = true
-		// mapView.showsTraffic = true
-		// mapView.showsBuildings = true
 		mapView.isUserInteractionEnabled = true
 		mapView.layer.cornerRadius = 8
+		if #available(iOS 13.0, *) {
+			mapView.pointOfInterestFilter = .excludingAll
+		}
 
 		searchTableView.translatesAutoresizingMaskIntoConstraints = false
 		searchTableView.backgroundColor = .secondarySystemBackground
 		searchTableView.showsVerticalScrollIndicator = false
 		searchTableView.register(DistanceSliderTableViewCell.self,
 								 forCellReuseIdentifier: DistanceSliderTableViewCell.identifier)
-		searchTableView.register(TypeSelectionTableViewCell.self, 
+		searchTableView.register(TypeSelectionTableViewCell.self,
 								 forCellReuseIdentifier: TypeSelectionTableViewCell.identifier)
 		searchTableView.register(SearchTableViewCell.self,
 								 forCellReuseIdentifier: SearchTableViewCell.identifier)
