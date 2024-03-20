@@ -35,6 +35,7 @@ extension SearchTableViewCellView {
 		searchButton.configuration?.buttonSize = .large
 		searchButton.configuration?.baseBackgroundColor = .systemBlue
 		searchButton.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
+		searchButton.isEnabled = false
 	}
 	private func addElements() {
 		addSubview(searchButton)

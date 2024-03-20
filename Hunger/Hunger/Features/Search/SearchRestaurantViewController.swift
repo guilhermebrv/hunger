@@ -19,6 +19,7 @@ class SearchRestaurantViewController: UIViewController {
 	var previousSelectedButton: UIButton?
 	var previousTypeTitleLabel: String?
 	var selectedType: String?
+	var buttonEnabled: Bool = false
 
 	override func loadView() {
 		super.loadView()
@@ -151,9 +152,12 @@ extension SearchRestaurantViewController: UITableViewDelegate, UITableViewDataSo
 			typeCell.callback = { collectionCell in
 				self.makeNewSelection(cell: collectionCell)
 				self.selectedType = collectionCell.button.currentTitle ?? ""
+				self.buttonEnabled = true
+				DispatchQueue.main.async { self.searchView?.searchTableView.reloadData() }
 			}
 		case let searchCell as SearchTableViewCell:
 			searchCell.delegate = self
+			if self.buttonEnabled { searchCell.view.searchButton.isEnabled = true }
 		default:
 			break
 		}
