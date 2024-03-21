@@ -63,17 +63,16 @@ extension SearchRestaurantViewController {
 extension SearchRestaurantViewController: DistanceSliderTableViewCellDelegate, SearchTableViewCellDelegate {
 	func sliderValueChanged(value: Int) {
 		userSelectedRadius = CLLocationDistance(value)
-		locationManager?.startUpdatingLocation()
+		// locationManager?.startUpdatingLocation()
 		setMapOverlay(radius: userSelectedRadius)
 	}
 	func tappedSearchButton() {
 		if let locationManager, let selectedType {
-			let restResultsVC = RestaurantResultsViewController(locationManager: locationManager, 
+			let restResultsVC = RestaurantResultsViewController(locationManager: locationManager,
 																radiusDistance: userSelectedRadius,
 																foodType: selectedType)
 			navigationController?.pushViewController(restResultsVC, animated: true)
 		}
-		// TODO: Handle error for when type is not selected (pop up alert)
 	}
 }
 
@@ -81,21 +80,22 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	private func setupLocationManager() {
 		locationManager = CLLocationManager()
 		locationManager?.delegate = self
-		locationManager?.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager?.requestWhenInUseAuthorization()
-		locationManager?.startUpdatingLocation()
+		locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+		// locationManager?.startUpdatingLocation()
 	}
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.last {
-			let region = setRegion(for: location, radius: userSelectedRadius * 2.5)
 			DispatchQueue.main.async {
+				let region = self.setRegion(for: location, radius: self.userSelectedRadius * 2.5)
 				self.searchView?.mapView.setRegion(region, animated: true)
 				self.setMapOverlay(radius: self.userSelectedRadius)
 			}
 		}
 	}
 	private func setRegion(for location: CLLocation, radius: CLLocationDistance) -> MKCoordinateRegion {
-		let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius,
+		let region = MKCoordinateRegion(center: location.coordinate,
+										latitudinalMeters: radius,
 										longitudinalMeters: radius)
 		return region
 	}
