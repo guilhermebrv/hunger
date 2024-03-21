@@ -18,14 +18,3 @@ class CustomAnnotation: NSObject, MKAnnotation {
 			self.category = category
 		}
 }
-
-class ClusterAnnotationView: MKMarkerAnnotationView {
-	override var annotation: MKAnnotation? {
-		willSet {
-			if let cluster = newValue as? MKClusterAnnotation {
-				markerTintColor = .systemBlue
-				glyphText = String(cluster.memberAnnotations.count) 
-			}
-		}
-	}
-}

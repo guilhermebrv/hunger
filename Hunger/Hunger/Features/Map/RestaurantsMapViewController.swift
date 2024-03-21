@@ -77,7 +77,7 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 		if let customAnnotation = view.annotation as? CustomAnnotation {
 			mapView.deselectAnnotation(customAnnotation, animated: false)
 
-			presentRestaurantDetails()
+			presentRestaurantDetails(restaurant: customAnnotation.title ?? "")
 		}
 	}
 	func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
@@ -156,8 +156,8 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 }
 
 extension RestaurantsMapViewController {
-	func presentRestaurantDetails() {
-		let restaurantDetails = RestaurantDetailsViewController()
+	func presentRestaurantDetails(restaurant: String) {
+		let restaurantDetails = RestaurantDetailsViewController(selectedItem: restaurant)
 		restaurantDetails.modalPresentationStyle = .pageSheet
 		restaurantDetails.sheetPresentationController?.prefersGrabberVisible = true
 		restaurantDetails.sheetPresentationController?.detents = [.medium(), .large()]

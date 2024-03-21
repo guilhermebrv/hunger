@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0780EB2BAC806500150E12 /* RestaurantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0780EA2BAC806500150E12 /* RestaurantDetailsView.swift */; };
+		2B0780EE2BAC84DF00150E12 /* InfoDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0780ED2BAC84DF00150E12 /* InfoDetailsTableViewCell.swift */; };
+		2B0780F02BAC852600150E12 /* InfoDetailsTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0780EF2BAC852600150E12 /* InfoDetailsTableViewCellView.swift */; };
 		2B1F7D862BA30F2D00D7E6EF /* SearchTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */; };
 		2B1F7D8A2BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */; };
 		2B1F7D8C2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */; };
@@ -57,6 +60,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B0780EA2BAC806500150E12 /* RestaurantDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsView.swift; sourceTree = "<group>"; };
+		2B0780ED2BAC84DF00150E12 /* InfoDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		2B0780EF2BAC852600150E12 /* InfoDetailsTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailsTableViewCellView.swift; sourceTree = "<group>"; };
 		2B1F7D852BA30F2D00D7E6EF /* SearchTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCellType.swift; sourceTree = "<group>"; };
 		2B1F7D892BA3137C00D7E6EF /* TypeSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		2B1F7D8B2BA3147C00D7E6EF /* TypeSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B0780EC2BAC849300150E12 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				2B0780ED2BAC84DF00150E12 /* InfoDetailsTableViewCell.swift */,
+				2B0780EF2BAC852600150E12 /* InfoDetailsTableViewCellView.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
 		2B1F7D842BA30E4F00D7E6EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,7 +320,9 @@
 		2BD8E3202BAB0E8600802F3D /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				2B0780EC2BAC849300150E12 /* Info */,
 				2BD8E3212BAB0E9500802F3D /* RestaurantDetailsViewController.swift */,
+				2B0780EA2BAC806500150E12 /* RestaurantDetailsView.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -477,12 +494,15 @@
 				2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */,
 				2BA66A642BA88B3600282AB2 /* RestaurantsMapView.swift in Sources */,
 				2B3DF5912B9F8B1300FC43D6 /* SearchRestaurantViewController.swift in Sources */,
+				2B0780EE2BAC84DF00150E12 /* InfoDetailsTableViewCell.swift in Sources */,
 				2BD8E3222BAB0E9500802F3D /* RestaurantDetailsViewController.swift in Sources */,
 				2B3DF5852B9F349600FC43D6 /* RestaurantResultsView.swift in Sources */,
+				2B0780F02BAC852600150E12 /* InfoDetailsTableViewCellView.swift in Sources */,
 				2BE9F0E12BA09C1B006AFB36 /* TabBarController.swift in Sources */,
 				2B2E3E8A2B98C70E003383E7 /* AppDelegate.swift in Sources */,
 				2BA66A622BA88B2A00282AB2 /* RestaurantsMapViewController.swift in Sources */,
 				2BC11B4F2BA45A96001985E6 /* SearchTableViewCellView.swift in Sources */,
+				2B0780EB2BAC806500150E12 /* RestaurantDetailsView.swift in Sources */,
 				2B1F7D8E2BA3292C00D7E6EF /* RestaurantTypes.swift in Sources */,
 				2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */,
 				2BC11B4D2BA45A48001985E6 /* SearchTableViewCell.swift in Sources */,

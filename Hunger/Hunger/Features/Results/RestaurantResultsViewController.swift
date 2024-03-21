@@ -12,7 +12,6 @@ import MapKit
 class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate {
 	private var viewModel: RestaurantResultsViewModel = RestaurantResultsViewModel()
 	var listView: RestaurantResultsView?
-	var restaurantsList: [MKMapItem] = [MKMapItem]()
 
 	let locationManager: CLLocationManager
 	let radiusDistance: CLLocationDistance
@@ -133,7 +132,7 @@ extension RestaurantResultsViewController: RestaurantResultsViewDelegate {
 		let modal = RestaurantsMapViewController(locationManager: locationManager, 
 												 radiusDistance: radiusDistance,
 												 foodType: foodType,
-												 restaurantsList: restaurantsList)
+												 restaurantsList: viewModel.restaurantsList ?? [MKMapItem]())
 		modal.modalPresentationStyle = .fullScreen
 		present(modal, animated: true)
 	}
