@@ -144,9 +144,10 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 			case "Cafe", "Bakery":
 				category = "Cafe"
 			default:
-				category = ""
+				category = foodType
 			}
 			let annotation = CustomAnnotation(coordinate: restaurant.placemark.coordinate,
+											  location: restaurant.placemark.location ?? CLLocation(),
 											  title: restaurant.name ?? "",
 											  category: category)
 			map.addAnnotation(annotation)
@@ -156,7 +157,7 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 
 extension RestaurantsMapViewController {
 	func presentRestaurantDetails(restaurant: CustomAnnotation) {
-		let restaurantDetails = RestaurantDetailsViewController(selectedItem: restaurant)
+		let restaurantDetails = RestaurantDetailsViewController(selectedItem: restaurant, locationManager: locationManager)
 		restaurantDetails.modalPresentationStyle = .pageSheet
 		restaurantDetails.sheetPresentationController?.prefersGrabberVisible = true
 		restaurantDetails.sheetPresentationController?.detents = [.medium(), .large()]

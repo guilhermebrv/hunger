@@ -8,13 +8,18 @@
 import MapKit
 
 class CustomAnnotation: NSObject, MKAnnotation {
-		var coordinate: CLLocationCoordinate2D
-		var title: String?
-		var category: String
+	var coordinate: CLLocationCoordinate2D
+	var location: CLLocation
+	var title: String?
+	var category: String
 
-		init(coordinate: CLLocationCoordinate2D, title: String, category: String) {
-			self.coordinate = coordinate
-			self.title = title
-			self.category = category
-		}
+	init(coordinate: CLLocationCoordinate2D,
+		 location: CLLocation,
+		 title: String,
+		 category: String) {
+		self.coordinate = coordinate
+		self.location = location
+		self.title = title
+		self.category = category
+	}
 }

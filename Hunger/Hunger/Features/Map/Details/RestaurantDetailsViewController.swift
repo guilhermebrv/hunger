@@ -10,10 +10,12 @@ import MapKit
 
 class RestaurantDetailsViewController: UIViewController {
 	var detailsView: RestaurantDetailsView?
+	let locationManager: CLLocationManager
 	let selectedItem: CustomAnnotation
 
-	init(selectedItem: CustomAnnotation) {
+	init(selectedItem: CustomAnnotation, locationManager: CLLocationManager) {
 		self.selectedItem = selectedItem
+		self.locationManager = locationManager
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -48,7 +50,7 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, for: indexPath) as? InfoDetailsTableViewCell
-		cell?.setupCell(item: selectedItem)
+		cell?.setupCell(locationManager: locationManager, item: selectedItem)
 		return cell ?? UITableViewCell()
 	}
 }

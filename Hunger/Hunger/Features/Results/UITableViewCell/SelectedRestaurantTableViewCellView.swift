@@ -51,12 +51,10 @@ extension SelectedRestaurantTableViewCellView {
 		nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
 		nameLabel.textColor = .label
 		nameLabel.numberOfLines = 0
-		nameLabel.text = "Name"
 
 		typeLabel.translatesAutoresizingMaskIntoConstraints = false
 		typeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		typeLabel.textColor = .secondaryLabel
-		typeLabel.text = "Type"
 
 		priceRangeLabel.translatesAutoresizingMaskIntoConstraints = false
 		priceRangeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -66,7 +64,6 @@ extension SelectedRestaurantTableViewCellView {
 		distanceLabel.translatesAutoresizingMaskIntoConstraints = false
 		distanceLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		distanceLabel.textColor = .secondaryLabel
-		distanceLabel.text = "200m"
 
 		starImageView.translatesAutoresizingMaskIntoConstraints = false
 		starImageView.image = UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal)

@@ -25,7 +25,12 @@ class InfoDetailsTableViewCell: UITableViewCell {
 }
 
 extension InfoDetailsTableViewCell {
-	public func setupCell(item: CustomAnnotation) {
+	public func setupCell(locationManager: CLLocationManager, item: CustomAnnotation) {
+		let distance = locationManager.location?.distance(from: item.location)
 		view.nameLabel.text = item.title
+		view.typeLabel.text = item.category
+		if let distance = distance {
+			view.distanceLabel.text = "\(Int(distance))m"
+		}
 	}
 }
