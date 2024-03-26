@@ -10,17 +10,17 @@ import MapKit
 
 class RestaurantDetailsViewController: UIViewController {
 	var detailsView: RestaurantDetailsView?
-	let selectedItem: String
+	let selectedItem: CustomAnnotation
 
-	init(selectedItem: String) {
+	init(selectedItem: CustomAnnotation) {
 		self.selectedItem = selectedItem
 		super.init(nibName: nil, bundle: nil)
 	}
-	
+
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
+
 	override func loadView() {
 		super.loadView()
 		detailsView = RestaurantDetailsView()
@@ -45,7 +45,7 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		1
 	}
-	
+
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, for: indexPath) as? InfoDetailsTableViewCell
 		cell?.setupCell(item: selectedItem)

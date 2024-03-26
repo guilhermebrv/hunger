@@ -25,7 +25,7 @@ class InfoDetailsTableViewCell: UITableViewCell {
 }
 
 extension InfoDetailsTableViewCell {
-	public func setupCell(item: String) {
-		view.nameLabel.text = item
+	public func setupCell(item: CustomAnnotation) {
+		view.nameLabel.text = item.title
 	}
 }
