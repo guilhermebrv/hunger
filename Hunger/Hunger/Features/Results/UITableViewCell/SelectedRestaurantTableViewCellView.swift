@@ -9,7 +9,7 @@ import UIKit
 
 class SelectedRestaurantTableViewCellView: UIView {
 
-	let restaurantImageView = UIImageView()
+//	let restaurantImageView = UIImageView()
 	let infoStackView = UIStackView()
 	let nameLabel = UILabel()
 	let typeLabel = UILabel()
@@ -23,6 +23,9 @@ class SelectedRestaurantTableViewCellView: UIView {
 		createElements()
 		addElements()
 		configConstraints()
+		backgroundColor = .tertiarySystemBackground
+		layer.cornerRadius = 8
+		clipsToBounds = true
 	}
 
 	required init?(coder: NSCoder) {
@@ -32,11 +35,12 @@ class SelectedRestaurantTableViewCellView: UIView {
 
 extension SelectedRestaurantTableViewCellView {
 	private func createElements() {
-		restaurantImageView.translatesAutoresizingMaskIntoConstraints = false
-		restaurantImageView.contentMode = .scaleAspectFill
-		restaurantImageView.clipsToBounds = true
-		restaurantImageView.layer.cornerRadius = 8
-		restaurantImageView.image = UIImage(systemName: "photo")?.withRenderingMode(.alwaysOriginal).withTintColor(.systemGray5)
+//		restaurantImageView.translatesAutoresizingMaskIntoConstraints = false
+//		restaurantImageView.contentMode = .scaleAspectFill
+//		restaurantImageView.clipsToBounds = true
+//		restaurantImageView.layer.cornerRadius = 8
+//		restaurantImageView.image = UIImage(systemName: "photo")?.
+//		withRenderingMode(.alwaysOriginal).withTintColor(.systemGray5)
 
 		infoStackView.translatesAutoresizingMaskIntoConstraints = false
 		infoStackView.axis = .vertical
@@ -76,7 +80,7 @@ extension SelectedRestaurantTableViewCellView {
 	}
 
 	private func addElements() {
-		addSubview(restaurantImageView)
+//		addSubview(restaurantImageView)
 		addSubview(infoStackView)
 		infoStackView.addArrangedSubview(nameLabel)
 		infoStackView.addArrangedSubview(typeLabel)
@@ -88,24 +92,23 @@ extension SelectedRestaurantTableViewCellView {
 
 	private func configConstraints() {
 		NSLayoutConstraint.activate([
-			restaurantImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-			restaurantImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
-			restaurantImageView.widthAnchor.constraint(equalToConstant: 150),
-			restaurantImageView.heightAnchor.constraint(equalToConstant: 100),
+//			restaurantImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+//			restaurantImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
+//			restaurantImageView.widthAnchor.constraint(equalToConstant: 150),
+//			restaurantImageView.heightAnchor.constraint(equalToConstant: 100),
 
 			infoStackView.topAnchor.constraint(equalToSystemSpacingBelow: starImageView.bottomAnchor, multiplier: 1),
 			infoStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-			infoStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: restaurantImageView.trailingAnchor, multiplier: 1),
+			infoStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: infoStackView.trailingAnchor, multiplier: 2),
 
 			bottomAnchor.constraint(equalToSystemSpacingBelow: distanceLabel.bottomAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: distanceLabel.trailingAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: ratingLabel.trailingAnchor, multiplier: 2),
 
-			starImageView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1.5),
+			starImageView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
 			starImageView.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor),
 			ratingLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: starImageView.trailingAnchor, multiplier: 0.5)
 		])
 	}
 }
-

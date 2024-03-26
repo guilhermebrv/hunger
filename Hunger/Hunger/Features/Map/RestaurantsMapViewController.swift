@@ -76,7 +76,6 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 		if let customAnnotation = view.annotation as? CustomAnnotation {
 			mapView.deselectAnnotation(customAnnotation, animated: false)
-
 			presentRestaurantDetails(restaurant: customAnnotation.title ?? "")
 		}
 	}

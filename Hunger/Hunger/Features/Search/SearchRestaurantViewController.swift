@@ -29,13 +29,17 @@ class SearchRestaurantViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		setupLocationManager()
 		signProtocols()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		configureNavBar(title: "Search")
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		setupLocationManager()
 	}
 }
 
@@ -80,8 +84,8 @@ extension SearchRestaurantViewController: CLLocationManagerDelegate {
 	private func setupLocationManager() {
 		locationManager = CLLocationManager()
 		locationManager?.delegate = self
-		locationManager?.requestWhenInUseAuthorization()
 		locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+		locationManager?.requestWhenInUseAuthorization()
 		// locationManager?.startUpdatingLocation()
 	}
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

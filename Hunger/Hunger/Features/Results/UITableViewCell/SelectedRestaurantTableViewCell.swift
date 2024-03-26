@@ -14,8 +14,8 @@ class SelectedRestaurantTableViewCell: UITableViewCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		contentView.addSubview(view)
-		view.pin(to: contentView)
+		setupLayout()
+		backgroundColor = .secondarySystemBackground
 	}
 
 	required init?(coder: NSCoder) {
@@ -24,6 +24,17 @@ class SelectedRestaurantTableViewCell: UITableViewCell {
 }
 
 extension SelectedRestaurantTableViewCell {
+	private func setupLayout() {
+		contentView.addSubview(view)
+		view.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			view.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
+			view.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+			trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 2),
+			view.bottomAnchor.constraint(equalTo: bottomAnchor)
+		])
+	}
+
 	public func configureCell(with restaurant: MKMapItem, type: String, distance: Int) {
 		view.nameLabel.text = restaurant.name
 		view.typeLabel.text = type

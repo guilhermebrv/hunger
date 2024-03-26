@@ -33,6 +33,8 @@ extension RestaurantResultsView {
 		restaurantsTableView.translatesAutoresizingMaskIntoConstraints = false
 		restaurantsTableView.backgroundColor = .secondarySystemBackground
 		restaurantsTableView.showsVerticalScrollIndicator = false
+		restaurantsTableView.separatorStyle = .none
+		restaurantsTableView.allowsSelection = false
 		restaurantsTableView.register(SelectedRestaurantTableViewCell.self,
 									  forCellReuseIdentifier: SelectedRestaurantTableViewCell.identifier)
 		restaurantsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)

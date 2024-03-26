@@ -17,7 +17,7 @@ struct RestaurantResultsViewModel {
 	}
 
 	public var heightForRowAt: CGFloat {
-		170
+		160
 	}
 
 	public func distanceFromUser(_ restaurant: MKMapItem, _ location: CLLocation) -> Int {
