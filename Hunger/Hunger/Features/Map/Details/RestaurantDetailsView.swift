@@ -13,6 +13,7 @@ class RestaurantDetailsView: UIView {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		backgroundColor = .systemBackground
 		createElements()
 		addElements()
 		configConstraints()
@@ -28,22 +29,23 @@ extension RestaurantDetailsView {
 		detailsTableView.translatesAutoresizingMaskIntoConstraints = false
 		detailsTableView.backgroundColor = .secondarySystemBackground
 		detailsTableView.showsVerticalScrollIndicator = false
-		detailsTableView.register(InfoDetailsTableViewCell.self,
-								forCellReuseIdentifier: InfoDetailsTableViewCell.identifier)
+		detailsTableView.register(InfoDetailsTableViewCell.self, forCellReuseIdentifier: InfoDetailsTableViewCell.identifier)
 		detailsTableView.allowsSelection = false
 		detailsTableView.separatorStyle = .none
+		detailsTableView.backgroundColor = .systemBackground
 	}
+
 	private func addElements() {
 		addSubview(detailsTableView)
 
 	}
+
 	private func configConstraints() {
 		NSLayoutConstraint.activate([
 			detailsTableView.topAnchor.constraint(equalTo: topAnchor),
 			detailsTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			detailsTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			detailsTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
+			detailsTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
 		])
 	}
 }

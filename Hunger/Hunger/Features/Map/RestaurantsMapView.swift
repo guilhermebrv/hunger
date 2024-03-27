@@ -13,10 +13,11 @@ protocol RestaurantsMapViewDelegate: AnyObject {
 }
 
 class RestaurantsMapView: UIView {
+	weak var delegate: RestaurantsMapViewDelegate?
+
 	let mapView = MKMapView()
 	var userTrackingButton = MKUserTrackingButton(mapView: MKMapView())
 	let closeButton = UIButton(frame: CGRect(x: 16, y: 56, width: 45, height: 45))
-	weak var delegate: RestaurantsMapViewDelegate?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -28,7 +29,6 @@ class RestaurantsMapView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
 }
 
 extension RestaurantsMapView {
@@ -64,11 +64,13 @@ extension RestaurantsMapView {
 		closeButton.layer.shadowOffset = CGSize(width: 1, height: 1)
 		closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
 	}
+
 	private func addElements() {
 		addSubview(mapView)
 		mapView.addSubview(userTrackingButton)
 		mapView.addSubview(closeButton)
 	}
+	
 	private func configConstraints() {
 		NSLayoutConstraint.activate([
 			mapView.topAnchor.constraint(equalTo: topAnchor),

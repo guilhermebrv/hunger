@@ -19,6 +19,7 @@ class InfoDetailsTableViewCellView: UIView {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		backgroundColor = .systemBackground
 		createElements()
 		addElements()
 		configConstraints()
@@ -72,7 +73,7 @@ extension InfoDetailsTableViewCellView {
 			nameLabel.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
 			nameLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
 
-			distanceLabel.topAnchor.constraint(equalTo: topAnchor),
+			distanceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: distanceLabel.trailingAnchor, multiplier: 2),
 
 			ballOpenedLabel.centerYAnchor.constraint(equalTo: openedLabel.centerYAnchor),

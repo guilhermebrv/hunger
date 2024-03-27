@@ -9,9 +9,10 @@ import UIKit
 import MapKit
 
 class RestaurantDetailsViewController: UIViewController {
-	var detailsView: RestaurantDetailsView?
-	let locationManager: CLLocationManager
-	let selectedItem: CustomAnnotation
+	private var detailsView: RestaurantDetailsView?
+	private let viewModel: RestaurantDetailsViewModel = RestaurantDetailsViewModel()
+	private let locationManager: CLLocationManager
+	private let selectedItem: CustomAnnotation
 
 	init(selectedItem: CustomAnnotation, locationManager: CLLocationManager) {
 		self.selectedItem = selectedItem
@@ -29,11 +30,10 @@ class RestaurantDetailsViewController: UIViewController {
 		view = detailsView
 	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		signProtocols()
-    }
-
+	}
 }
 
 extension RestaurantDetailsViewController {
@@ -45,12 +45,21 @@ extension RestaurantDetailsViewController {
 
 extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		1
+		viewModel.numberOfRowsInSection
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, for: indexPath) as? InfoDetailsTableViewCell
-		cell?.setupCell(locationManager: locationManager, item: selectedItem)
-		return cell ?? UITableViewCell()
+		let cell = viewModel.getTableViewCell(for: tableView, index: indexPath)
+		switch cell {
+		case let infoCell as InfoDetailsTableViewCell:
+			infoCell.setupCell(locationManager: locationManager, item: selectedItem)
+		default:
+			break
+		}
+		return cell
+	}
+
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		viewModel.heightForRowAt
 	}
 }

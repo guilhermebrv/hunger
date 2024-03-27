@@ -12,13 +12,11 @@ import MapKit
 class RestaurantsMapViewController: UIViewController {
 	var mapView: RestaurantsMapView?
 	let locationManager: CLLocationManager
-	let radiusDistance: CLLocationDistance
 	let foodType: String
 	let restaurantsList: [MKMapItem]
 
-	init(locationManager: CLLocationManager, radiusDistance: CLLocationDistance, foodType: String, restaurantsList: [MKMapItem]) {
+	init(locationManager: CLLocationManager, foodType: String, restaurantsList: [MKMapItem]) {
 		self.locationManager = locationManager
-		self.radiusDistance = radiusDistance
 		self.foodType = foodType
 		self.restaurantsList = restaurantsList
 		super.init(nibName: nil, bundle: nil)

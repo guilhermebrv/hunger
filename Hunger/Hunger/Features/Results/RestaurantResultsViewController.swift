@@ -58,6 +58,7 @@ class RestaurantResultsViewController: UIViewController, UINavigationBarDelegate
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		listView?.restaurantsTableView.reloadData()
 		configureNavBar(title: "Restaurants")
 		// navigationItem.rightBarButtonItem = UIBarButtonItem(customView: orderByButton)
 	}
@@ -130,7 +131,6 @@ extension RestaurantResultsViewController {
 extension RestaurantResultsViewController: RestaurantResultsViewDelegate {
 	func tappedMapsButton() {
 		let modal = RestaurantsMapViewController(locationManager: locationManager,
-												 radiusDistance: radiusDistance,
 												 foodType: foodType,
 												 restaurantsList: viewModel.restaurantsList ?? [MKMapItem]())
 		modal.modalPresentationStyle = .fullScreen
