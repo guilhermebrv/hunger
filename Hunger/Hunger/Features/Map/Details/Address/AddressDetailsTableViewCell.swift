@@ -8,7 +8,12 @@
 import UIKit
 import MapKit
 
+protocol AddressDetailsTableViewCellDelegate: AnyObject {
+	func handleLongPress(_ gesture: UILongPressGestureRecognizer)
+}
+
 class AddressDetailsTableViewCell: UITableViewCell {
+	weak var delegate: AddressDetailsTableViewCellDelegate?
 	let view = AddressDetailsTableViewCellView()
 	static let identifier = String(describing: AddressDetailsTableViewCell.self)
 
@@ -16,6 +21,7 @@ class AddressDetailsTableViewCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 		backgroundColor = .systemBackground
+		view.delegate = self
 	}
 
 	required init?(coder: NSCoder) {
@@ -49,3 +55,8 @@ extension AddressDetailsTableViewCell {
 	}
 }
 
+extension AddressDetailsTableViewCell: AddressDetailsTableViewCellViewDelegate {
+	func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+		delegate?.handleLongPress(gesture)
+	}
+}

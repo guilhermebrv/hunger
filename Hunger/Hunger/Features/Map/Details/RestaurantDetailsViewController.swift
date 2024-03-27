@@ -13,7 +13,6 @@ class RestaurantDetailsViewController: UIViewController {
 	private let viewModel: RestaurantDetailsViewModel = RestaurantDetailsViewModel()
 	private let locationManager: CLLocationManager
 	private let selectedItem: CustomAnnotation
-	
 
 	init(selectedItem: CustomAnnotation, locationManager: CLLocationManager) {
 		self.selectedItem = selectedItem
@@ -55,6 +54,7 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 		case let infoCell as InfoDetailsTableViewCell:
 			infoCell.setupCell(locationManager: locationManager, item: selectedItem)
 		case let addressCell as AddressDetailsTableViewCell:
+			addressCell.delegate = self
 			addressCell.setupCell(item: selectedItem.item)
 		default:
 			break
@@ -64,5 +64,24 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		viewModel.heightForRowAt(for: indexPath)
+	}
+}
+
+extension RestaurantDetailsViewController: AddressDetailsTableViewCellDelegate {
+	func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+		if gesture.state == .began {
+			let point = gesture.location(in: detailsView?.detailsTableView)
+			if let indexPath = detailsView?.detailsTableView.indexPathForRow(at: point),
+			   let cell = detailsView?.detailsTableView.cellForRow(at: indexPath) as? AddressDetailsTableViewCell {
+
+				let addressLabel = cell.contentView.viewWithTag(13) as? UILabel
+				UIPasteboard.general.string = addressLabel?.text
+
+				cell.view.backgroundColor = UIColor.systemGray3
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+					cell.view.backgroundColor = .secondarySystemBackground
+				}
+			}
+		}
 	}
 }

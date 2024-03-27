@@ -17,7 +17,7 @@ struct RestaurantDetailsViewModel {
 	public func heightForRowAt(for index: IndexPath) -> CGFloat {
 		switch cellTypes[index.row] {
 		case .info:
-			120
+			110
 		case .address:
 			90
 		}

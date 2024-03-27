@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol AddressDetailsTableViewCellViewDelegate: AnyObject {
+	func handleLongPress(_ gesture: UILongPressGestureRecognizer)
+}
+
 class AddressDetailsTableViewCellView: UIView {
+	weak var delegate: AddressDetailsTableViewCellViewDelegate?
 	let addressLabel = UILabel()
 
 	override init(frame: CGRect) {
@@ -31,6 +36,11 @@ extension AddressDetailsTableViewCellView {
 		addressLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		addressLabel.textColor = .secondaryLabel
 		addressLabel.numberOfLines = 0
+		addressLabel.tag = 13
+
+		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+		longPressGesture.minimumPressDuration = 0.5
+		addGestureRecognizer(longPressGesture)
 	}
 	
 	private func addElements() {
@@ -44,5 +54,11 @@ extension AddressDetailsTableViewCellView {
 			trailingAnchor.constraint(equalToSystemSpacingAfter: addressLabel.trailingAnchor, multiplier: 2),
 			bottomAnchor.constraint(equalToSystemSpacingBelow: addressLabel.bottomAnchor, multiplier: 1)
 		])
+	}
+}
+
+extension AddressDetailsTableViewCellView {
+	@objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+		delegate?.handleLongPress(gesture)
 	}
 }
