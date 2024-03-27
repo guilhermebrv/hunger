@@ -11,21 +11,28 @@ struct RestaurantDetailsViewModel {
 	private var cellTypes: [RestaurantDetailsTableViewCellType] = [.info, .address]
 
 	public var numberOfRowsInSection: Int {
-		1
+		cellTypes.count
 	}
 
-	public var heightForRowAt: CGFloat {
-		100
+	public func heightForRowAt(for index: IndexPath) -> CGFloat {
+		switch cellTypes[index.row] {
+		case .info:
+			120
+		case .address:
+			90
+		}
 	}
 
 	public func getTableViewCell(for tableView: UITableView, index: IndexPath) -> UITableViewCell {
 		switch cellTypes[index.row] {
 		case .info:
-		let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, 
+			let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, 
 													 for: index) as? InfoDetailsTableViewCell
 			return cell ?? UITableViewCell()
 		case .address:
-			return UITableViewCell()
+			let cell = tableView.dequeueReusableCell(withIdentifier: AddressDetailsTableViewCell.identifier,
+														 for: index) as? AddressDetailsTableViewCell
+			return cell ?? UITableViewCell()
 		}
 	}
 }

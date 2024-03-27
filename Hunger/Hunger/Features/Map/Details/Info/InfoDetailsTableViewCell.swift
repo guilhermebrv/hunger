@@ -25,8 +25,8 @@ class InfoDetailsTableViewCell: UITableViewCell {
 
 extension InfoDetailsTableViewCell {
 	public func setupCell(locationManager: CLLocationManager, item: CustomAnnotation) {
-		let distance = locationManager.location?.distance(from: item.location)
-		view.nameLabel.text = item.title
+		let distance = locationManager.location?.distance(from: item.item.placemark.location ?? CLLocation())
+		view.nameLabel.text = item.item.name
 		view.typeLabel.text = item.category
 		if let distance = distance {
 			view.distanceLabel.text = "\(Int(distance))m"

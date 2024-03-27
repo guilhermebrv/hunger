@@ -12,8 +12,8 @@ class InfoDetailsTableViewCellView: UIView {
 	let typeLabel = UILabel()
 	let priceLabel = UILabel()
 	let distanceLabel = UILabel()
-	let starImageView = UIImageView()
-	let ratingLabel = UILabel()
+	// let starImageView = UIImageView()
+	// let ratingLabel = UILabel()
 	let ballOpenedLabel = UILabel()
 	let openedLabel = UILabel()
 

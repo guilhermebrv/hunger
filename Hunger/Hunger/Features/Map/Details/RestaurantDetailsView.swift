@@ -30,6 +30,7 @@ extension RestaurantDetailsView {
 		detailsTableView.backgroundColor = .secondarySystemBackground
 		detailsTableView.showsVerticalScrollIndicator = false
 		detailsTableView.register(InfoDetailsTableViewCell.self, forCellReuseIdentifier: InfoDetailsTableViewCell.identifier)
+		detailsTableView.register(AddressDetailsTableViewCell.self, forCellReuseIdentifier: AddressDetailsTableViewCell.identifier)
 		detailsTableView.allowsSelection = false
 		detailsTableView.separatorStyle = .none
 		detailsTableView.backgroundColor = .systemBackground

@@ -13,6 +13,7 @@ class RestaurantDetailsViewController: UIViewController {
 	private let viewModel: RestaurantDetailsViewModel = RestaurantDetailsViewModel()
 	private let locationManager: CLLocationManager
 	private let selectedItem: CustomAnnotation
+	
 
 	init(selectedItem: CustomAnnotation, locationManager: CLLocationManager) {
 		self.selectedItem = selectedItem
@@ -53,6 +54,8 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 		switch cell {
 		case let infoCell as InfoDetailsTableViewCell:
 			infoCell.setupCell(locationManager: locationManager, item: selectedItem)
+		case let addressCell as AddressDetailsTableViewCell:
+			addressCell.setupCell(item: selectedItem.item)
 		default:
 			break
 		}
@@ -60,6 +63,6 @@ extension RestaurantDetailsViewController: UITableViewDelegate, UITableViewDataS
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		viewModel.heightForRowAt
+		viewModel.heightForRowAt(for: indexPath)
 	}
 }

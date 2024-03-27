@@ -144,8 +144,8 @@ extension RestaurantsMapViewController: MKMapViewDelegate {
 			default:
 				category = foodType
 			}
-			let annotation = CustomAnnotation(coordinate: restaurant.placemark.coordinate,
-											  location: restaurant.placemark.location ?? CLLocation(),
+			let annotation = CustomAnnotation(item: restaurant,
+											  coordinate: restaurant.placemark.coordinate, 
 											  title: restaurant.name ?? "",
 											  category: category)
 			map.addAnnotation(annotation)
