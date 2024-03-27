@@ -9,5 +9,6 @@ import Foundation
 
 enum RestaurantDetailsTableViewCellType {
 	case info
+	case route
 	case address
 }

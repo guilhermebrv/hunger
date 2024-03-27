@@ -8,7 +8,7 @@
 import UIKit
 
 struct RestaurantDetailsViewModel {
-	private var cellTypes: [RestaurantDetailsTableViewCellType] = [.info, .address]
+	private var cellTypes: [RestaurantDetailsTableViewCellType] = [.info, .route, .address]
 
 	public var numberOfRowsInSection: Int {
 		cellTypes.count
@@ -18,8 +18,10 @@ struct RestaurantDetailsViewModel {
 		switch cellTypes[index.row] {
 		case .info:
 			110
-		case .address:
+		case .route:
 			90
+		case .address:
+			100
 		}
 	}
 
@@ -29,9 +31,13 @@ struct RestaurantDetailsViewModel {
 			let cell = tableView.dequeueReusableCell(withIdentifier: InfoDetailsTableViewCell.identifier, 
 													 for: index) as? InfoDetailsTableViewCell
 			return cell ?? UITableViewCell()
+		case .route:
+			let cell = tableView.dequeueReusableCell(withIdentifier: RouteTableViewCell.identifier,
+													 for: index) as? RouteTableViewCell
+			return cell ?? UITableViewCell()
 		case .address:
 			let cell = tableView.dequeueReusableCell(withIdentifier: AddressDetailsTableViewCell.identifier,
-														 for: index) as? AddressDetailsTableViewCell
+													 for: index) as? AddressDetailsTableViewCell
 			return cell ?? UITableViewCell()
 		}
 	}

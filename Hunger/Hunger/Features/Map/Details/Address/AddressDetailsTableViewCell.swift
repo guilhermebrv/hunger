@@ -34,7 +34,7 @@ extension AddressDetailsTableViewCell {
 		contentView.addSubview(view)
 		view.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			view.topAnchor.constraint(equalTo: topAnchor),
+			view.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
 			view.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
 			trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 2),
 			view.bottomAnchor.constraint(equalTo: bottomAnchor)

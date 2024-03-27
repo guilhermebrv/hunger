@@ -33,6 +33,8 @@
 		2BAB03BF2BB432FA00B1B0C5 /* RestaurantDetailsTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB03BE2BB432FA00B1B0C5 /* RestaurantDetailsTableViewCellType.swift */; };
 		2BAB03C12BB4423100B1B0C5 /* AddressDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB03C02BB4423100B1B0C5 /* AddressDetailsTableViewCell.swift */; };
 		2BAB03C32BB4423D00B1B0C5 /* AddressDetailsTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB03C22BB4423D00B1B0C5 /* AddressDetailsTableViewCellView.swift */; };
+		2BAB03C62BB47CAF00B1B0C5 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB03C52BB47CAF00B1B0C5 /* RouteTableViewCell.swift */; };
+		2BAB03C82BB47D1900B1B0C5 /* RouteTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB03C72BB47D1900B1B0C5 /* RouteTableViewCellView.swift */; };
 		2BB309E42BA201C6005EE59D /* InstantSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E32BA201C6005EE59D /* InstantSlider.swift */; };
 		2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E62BA2032F005EE59D /* DistanceSliderView.swift */; };
 		2BB309E92BA2034C005EE59D /* DistanceSliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB309E82BA2034C005EE59D /* DistanceSliderTableViewCell.swift */; };
@@ -94,6 +96,8 @@
 		2BAB03BE2BB432FA00B1B0C5 /* RestaurantDetailsTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsTableViewCellType.swift; sourceTree = "<group>"; };
 		2BAB03C02BB4423100B1B0C5 /* AddressDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		2BAB03C22BB4423D00B1B0C5 /* AddressDetailsTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDetailsTableViewCellView.swift; sourceTree = "<group>"; };
+		2BAB03C52BB47CAF00B1B0C5 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		2BAB03C72BB47D1900B1B0C5 /* RouteTableViewCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCellView.swift; sourceTree = "<group>"; };
 		2BB309E32BA201C6005EE59D /* InstantSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantSlider.swift; sourceTree = "<group>"; };
 		2BB309E62BA2032F005EE59D /* DistanceSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceSliderView.swift; sourceTree = "<group>"; };
 		2BB309E82BA2034C005EE59D /* DistanceSliderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceSliderTableViewCell.swift; sourceTree = "<group>"; };
@@ -317,6 +321,15 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
+		2BAB03C42BB47C7F00B1B0C5 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				2BAB03C52BB47CAF00B1B0C5 /* RouteTableViewCell.swift */,
+				2BAB03C72BB47D1900B1B0C5 /* RouteTableViewCellView.swift */,
+			);
+			path = Route;
+			sourceTree = "<group>";
+		};
 		2BB309E52BA2030F005EE59D /* DistanceSliderCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				2B0780EC2BAC849300150E12 /* Info */,
+				2BAB03C42BB47C7F00B1B0C5 /* Route */,
 				2BAB03BB2BB4310C00B1B0C5 /* Address */,
 				2BD8E3212BAB0E9500802F3D /* RestaurantDetailsViewController.swift */,
 				2B0780EA2BAC806500150E12 /* RestaurantDetailsView.swift */,
@@ -526,10 +540,12 @@
 				2BA66A622BA88B2A00282AB2 /* RestaurantsMapViewController.swift in Sources */,
 				2BC11B4F2BA45A96001985E6 /* SearchTableViewCellView.swift in Sources */,
 				2B0780EB2BAC806500150E12 /* RestaurantDetailsView.swift in Sources */,
+				2BAB03C82BB47D1900B1B0C5 /* RouteTableViewCellView.swift in Sources */,
 				2B1F7D8E2BA3292C00D7E6EF /* RestaurantTypes.swift in Sources */,
 				2BB309E72BA2032F005EE59D /* DistanceSliderView.swift in Sources */,
 				2BC11B4D2BA45A48001985E6 /* SearchTableViewCell.swift in Sources */,
 				2B3DF5832B9F345C00FC43D6 /* RestaurantResultsViewController.swift in Sources */,
+				2BAB03C62BB47CAF00B1B0C5 /* RouteTableViewCell.swift in Sources */,
 				2B3DF58B2B9F87B100FC43D6 /* SelectedRestaurantTableViewCellView.swift in Sources */,
 				2BAB03BF2BB432FA00B1B0C5 /* RestaurantDetailsTableViewCellType.swift in Sources */,
 				2B3DF5892B9F875100FC43D6 /* SelectedRestaurantTableViewCell.swift in Sources */,

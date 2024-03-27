@@ -42,7 +42,7 @@ extension AddressDetailsTableViewCellView {
 		longPressGesture.minimumPressDuration = 0.5
 		addGestureRecognizer(longPressGesture)
 	}
-	
+
 	private func addElements() {
 		addSubview(addressLabel)
 	}
